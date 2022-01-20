@@ -73,7 +73,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
     public void onServerStarted() {
         // TODO Auto-generated method stub
         AshfallCreatures.createCreatureTemplates();
-
+        ModActions.registerBehaviourProvider(new ArtifactBehaviour());
     }
 
 
