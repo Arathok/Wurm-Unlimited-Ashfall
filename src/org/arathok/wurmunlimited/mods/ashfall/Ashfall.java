@@ -2,21 +2,13 @@ package org.arathok.wurmunlimited.mods.ashfall; // HELLO GITHUB!
 
 import com.wurmonline.server.creatures.Communicator;
 
-import javassist.CannotCompileException;
-
-import javassist.ClassPool;
-import javassist.CtClass;
-import javassist.NotFoundException;
-
-import org.gotti.wurmunlimited.modloader.classhooks.HookManager;
+import org.arathok.wurmunlimited.mods.ashfall.artifacts.ArtifactBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
-import com.wurmonline.server.zones.SpawnTable;
+import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
 
-import java.io.IOException;
-import java.util.HashMap;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurable, ItemTemplatesCreatedListener, ServerStartedListener, ServerPollListener, PlayerMessageListener{
@@ -33,6 +25,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
     @Override
     public void preInit() {
+        /* BDEW MODDED CREATURES
         try {
             ClassPool classPool = HookManager.getInstance().getClassPool();
             if (classPool == null)
@@ -49,7 +42,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
             e.printStackTrace();
         } catch (CannotCompileException e) {
             e.printStackTrace();
-        }
+        }*/
     }
         @Override
     public boolean onPlayerMessage(Communicator arg0, String arg1) {
@@ -81,7 +74,8 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
     @Override
     public void init() {
         // TODO Auto-generated method stub
-
+        ModCreatures.init();
+        ModCreatures.addCreature(new Sandworm());
     }
 
     @Override
