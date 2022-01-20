@@ -1,0 +1,20 @@
+<component name="libraryTable">
+  <library name="common">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../backup/backup/common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../backup/backup/javassist.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../backup/backup/modlauncher.jar!/" />
+      <root url="file://$PROJECT_DIR$/../backup" />
+      <root url="jar://$PROJECT_DIR$/../backup/backup/server.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../backup/backup/Wurm Unlimited Dedicated Server/backup/server" />
+      <root url="file://$PROJECT_DIR$/../backup/backup/Wurm Unlimited Dedicated Server/backup/server/1.0" />
+      <root url="file://$PROJECT_DIR$/../backup/backup/backup/server" />
+      <root url="file://$PROJECT_DIR$/../backup/backup/backup/server/1.0" />
+      <root url="jar://$PROJECT_DIR$/../backup/backup/server.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../backup/backup/server.jar!/1.0" />
+    </SOURCES>
+  </library>
+</component>

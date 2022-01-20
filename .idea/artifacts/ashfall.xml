@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="ashfall">
+    <output-path>D:/Spiele/Steam/steamapps/common/Wurm Unlimited Dedicated Server/mods/ashfall</output-path>
+    <root id="archive" name="ashfall.jar">
+      <element id="module-output" name="Ashfall" />
+    </root>
+  </artifact>
+</component>
