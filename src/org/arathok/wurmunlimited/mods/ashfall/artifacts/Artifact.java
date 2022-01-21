@@ -11,6 +11,7 @@ public class Artifact {
    public static Player previousOwner;
    public static Long ownershipBegin;
    public static Long ownershipEnd;
+   public static Long uses;
 
 
 
