@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class AshfallItems {
 
-    public static ItemTemplate waningCrescent,thornOfFo, heartOfUttacha, eyeOfValrei, flaskOfVynora, spice, essenceOfSea,ashPestPustule,ashPestPus;
-    public static int waningCrescentId,thornOfFoId, heartOfUttachaId, eyeOfValreiId, flaskOfVynoraId, spiceId, essenceOfSeaId,ashPestPustuleId,ashPestPusId;
+    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei, flaskOfVynora, spice, essenceOfSea, ashPestPustule, ashPestPus;
+    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId, flaskOfVynoraId, spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId;
 
     private static void registerSpice() throws IOException {
         spice = new ItemTemplateBuilder("arathok.ashfall.spice").name("Spice", "Spice",
@@ -33,30 +33,30 @@ public class AshfallItems {
     }
 
     private static void registerEssenceOfSea() throws IOException {
-    essenceOfSea = new ItemTemplateBuilder("arathok.ashfall.essenceSea").name("Essence of the Sea", "Essence of the Sea",
-    "Essence created by Vynora to give power to all sea creatures.")
+        essenceOfSea = new ItemTemplateBuilder("arathok.ashfall.essenceSea").name("Essence of the Sea", "Essence of the Sea",
+                        "Essence created by Vynora to give power to all sea creatures.")
                 .modelName("model.liquid.water.")
                 .imageNumber((short) IconConstants.ICON_LIQUID_WATER)
-            .itemTypes(new short[]{
-            ItemTypes.ITEM_TYPE_LIQUID
+                .itemTypes(new short[]{
+                        ItemTypes.ITEM_TYPE_LIQUID
 
-    })
+                })
 
-            .decayTime(Long.MAX_VALUE)
+                .decayTime(Long.MAX_VALUE)
                 .dimensions(5, 5, 5)
                 .weightGrams(10)
                 .behaviourType((short) 1) // ITEM
-            .build();
+                .build();
 
-    essenceOfSeaId = essenceOfSea.getTemplateId();
-}
+        essenceOfSeaId = essenceOfSea.getTemplateId();
+    }
 
-        private static void registerWaningCrescent() throws IOException {
+    private static void registerWaningCrescent() throws IOException {
         waningCrescent = new ItemTemplateBuilder("arathok.ashfall.libArtifact").name("Waning Crescent", "Waning Crescents",
                         "A scythe from the gods. Libila used to carry it but she lost it when the Volcano erupted.")
                 .modelName("model.weapon.scythe.")
                 .imageNumber((short) IconConstants.ICON_WEAPON_SCYTHE)
-                .itemTypes(new short[] {
+                .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
@@ -88,7 +88,7 @@ public class AshfallItems {
                         "A needle from the gods. Fo used it to sever the ground on Ashfall.")
                 .modelName("model.tool.needle.")
                 .imageNumber((short) IconConstants.ICON_TOOL_NEEDLE)
-                .itemTypes(new short[] {
+                .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
@@ -117,7 +117,7 @@ public class AshfallItems {
                         "The heart of the worm god. Its still beating and is said to give superior regeneration to its user.")
                 .modelName("model.item.heart.")
                 .imageNumber((short) IconConstants.ICON_HEART)
-                .itemTypes(new short[] {
+                .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
@@ -146,7 +146,7 @@ public class AshfallItems {
                         "The Ever watchfull eye of Valrei. Its the window to the soul and is said to give superior magical energies to its user.")
                 .modelName("model.item.valrei.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
-                .itemTypes(new short[] {
+                .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
@@ -175,7 +175,7 @@ public class AshfallItems {
                         "Fo stole it to create the volcano eruption creating Ashfall. It contains the essence of the Ocean which makes its user swim faster.")
                 .modelName("model.item.valrei.")
                 .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
-                .itemTypes(new short[] {
+                .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_NAMED,
                         ItemTypes.ITEM_TYPE_REPAIRABLE,
@@ -200,5 +200,16 @@ public class AshfallItems {
 
     }
 
+    public static void register() throws IOException {
+
+        registerSpice();
+        registerEssenceOfSea();
+        registerEyeOfValrei();
+        registerHeartOfUttacha();
+        registerThornOfFo();
+        registerWaningCrescent();
+        registerFlaskOfVynora();
+
     }
 
+}

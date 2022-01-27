@@ -4,11 +4,14 @@ import com.wurmonline.server.creatures.Communicator;
 
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.ArtifactBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
+import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
 
+import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurable, ItemTemplatesCreatedListener, ServerStartedListener, ServerPollListener, PlayerMessageListener{
@@ -55,7 +58,16 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
 
 
+        try{
 
+            AshfallItems.register();
+            logger.log(Level.INFO, "Alchemy is Done loading its Item Templates! Thank you Coldie!");
+
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+
+        }
 
 
         // TODO Auto-generated method stub
