@@ -22,7 +22,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
     @Override
     public void configure (Properties properties) {
 
-
+        Config.waterSickness = Boolean.parseBoolean(properties.getProperty("waterSickness", "true"));
     }
 
 
