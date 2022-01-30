@@ -27,13 +27,14 @@ public class AshpestHandler {
                         sickPerson = getSickPeople.next();
                         if (sickPerson.p == wetPlayer) {
                             int index = sickPeople.indexOf(sickPerson);
-                            sickPerson.numberOfPustules+=1;
+                            sickPerson.numberOfPustules+=1; // TODO: not every 10ms god damnit!
                             sickPeople.set(index,sickPerson);
                             playerFound = true;
 
 
                         }
                         if (!playerFound) {
+
                             Ashpest newSickplayer = new Ashpest();
                             newSickplayer.p = wetPlayer;
                             newSickplayer.timeOfInfection = time;
