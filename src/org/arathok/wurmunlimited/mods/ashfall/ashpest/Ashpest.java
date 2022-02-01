@@ -7,6 +7,7 @@ public class Ashpest {
     Player p;
     Long timeOfInfection;
     int numberOfPustules;
+    Long nextPustule;
 
 
 }
