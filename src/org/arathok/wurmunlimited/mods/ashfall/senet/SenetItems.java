@@ -1,9 +1,7 @@
 package org.arathok.wurmunlimited.mods.ashfall.senet;
 
 import com.wurmonline.server.MiscConstants;
-import com.wurmonline.server.items.ItemTemplate;
-import com.wurmonline.server.items.ItemTypes;
-import com.wurmonline.server.items.Materials;
+import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.IconConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
@@ -13,9 +11,101 @@ import java.io.IOException;
 public class SenetItems {
 
 
-        public static ItemTemplate senetBoardSimple, senetBoardAdvanced, gameFigurineWR, gameFigurineWB, gameFigurineWG, gameFigurineBR, gameFigurineBG, gameFigurineBB, diceBlack,diceWhite,senetRules;
-        public static int senetBoardSimpleId, senetBoardAdvancedId, gameFigurineWRId, gameFigurineWBId, gameFigurineWGId, gameFigurineBRId, gameFigurineBGId, gameFigurineBBId, diceBlackId,diceWhiteId,senetRulesId;
+        public static ItemTemplate senetBoardSimple, senetBoardAdvanced, senetFigurineWR, senetFigurineWB, senetFigurineWG, senetFigurineBR, senetFigurineBG, senetFigurineBB, senetDiceBlack,senetDiceWhite,senetRules;
+        public static int senetBoardSimpleId, senetBoardAdvancedId, senetFigurineWRId, senetFigurineWBId, senetFigurineWGId, senetFigurineBRId, senetFigurineBGId, senetFigurineBBId, senetDiceBlackId,senetDiceWhiteId,senetRulesId;
 
+    private static void registerSenetRules() throws IOException {
+        senetRules = new ItemTemplateBuilder("arathok.ashfall.senet.rules").name("Senet Rules", "Rules",
+                        "Senet Rules")
+                .modelName("model.ashfall.senet.rules")
+                .imageNumber((short) IconConstants.ICON_RESO_FENCEBARS)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_WOOD,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(200).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                
+                .build();
+
+        senetRulesId = senetRules.getTemplateId();
+
+        CreationEntryCreator.createSimpleEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.paperSheet, ItemList.dyeBlack, senetRulesId, true, true, 0f, false, false,0,5, CreationCategories.TOYS);
+
+
+    }
+
+    private static void registerSenetDiceBlack() throws IOException {
+        senetDiceBlack = new ItemTemplateBuilder("arathok.ashfall.senet.dice.black").name("Senet black dice instrument", "Dice instruments",
+                        "One of two Senet dice instruments. This one is colored black .")
+                .modelName("model.ashfall.senet.dice.black")
+                .imageNumber((short) IconConstants.ICON_RESO_FENCEBARS)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(2000).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                .difficulty(90) // no hard lock
+                .build();
+
+        senetDiceBlackId = senetDiceBlack.getTemplateId();
+
+        CreationEntryCreator.createAdvancedEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.opal, ItemList.fenceBars, senetDiceBlackId, true, true, 0f, false, false,0,5, CreationCategories.TOYS)
+        .addRequirement(new CreationRequirement(1, ItemList.dyeWhite, 2, true))
+        .addRequirement(new CreationRequirement(2, ItemList.dyeBlack, 2, true));
+
+    }
+
+    private static void registerSenetDiceWhite() throws IOException {
+        senetDiceWhite = new ItemTemplateBuilder("arathok.ashfall.senet.dice.white").name("Senet white dice instrument", "Dice instruments",
+                        "One of two Senet dice instruments. This one is colored white .")
+                .modelName("model.ashfall.senet.dice.white")
+                .imageNumber((short) IconConstants.ICON_RESO_FENCEBARS)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(2000).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                .difficulty(90) // no hard lock
+                .build();
+
+        senetDiceWhiteId = senetDiceWhite.getTemplateId();
+
+        CreationEntryCreator.createAdvancedEntry(SkillList.SMITHING_BLACKSMITHING, ItemList.diamond, ItemList.fenceBars, senetDiceWhiteId, true, true, 0f, false, false,0,5, CreationCategories.TOYS)
+                .addRequirement(new CreationRequirement(1, ItemList.dyeWhite, 2, true))
+                .addRequirement(new CreationRequirement(2, ItemList.dyeBlack, 2, true));
+
+    }
+        
         private static void registerSenetBoardSimple() throws IOException {
             senetBoardSimple = new ItemTemplateBuilder("arathok.ashfall.senet.boardSimple").name("Simple Senet Board", "Simple Senet Boards",
                             "A simple Senet game board. It is Played with 3 black and 3 white stones plus a black and a white dice. Maybe you can get a Toymaker to write the rules down for you.")
@@ -36,186 +126,235 @@ public class SenetItems {
                     .build();
 
             senetBoardSimpleId = senetBoardSimple.getTemplateId();
+            CreationEntryCreator.createAdvancedEntry(SkillList.TOYMAKING, ItemList.shaft, ItemList.clothYard, senetBoardSimpleId, true, false, 0f, false, false,0,5, CreationCategories.TOYS)
+                    .addRequirement(new CreationRequirement(1, ItemList.dyeRed, 2, true))
+                    .addRequirement(new CreationRequirement(2, ItemList.dyeGreen, 2, true))
+                    .addRequirement(new CreationRequirement(3, ItemList.dyeBlue, 2, true))
+                    .addRequirement(new CreationRequirement(4, ItemList.dyeBlue, 2, true))
+                    .addRequirement(new CreationRequirement(5, ItemList.dyeWhite, 12, true))
+                    .addRequirement(new CreationRequirement(6, ItemList.clothYard,23, true))
+                    .addRequirement(new CreationRequirement(7, ItemList.shaft, 29, true))
+                    .addRequirement(new CreationRequirement(8, ItemList.nailsIronSmall, 15, true));
         }
 
-        private static void registerEssenceOfSea() throws IOException {
-            essenceOfSea = new ItemTemplateBuilder("arathok.ashfall.essenceSea").name("Essence of the Sea", "Essence of the Sea",
-                            "Essence created by Vynora to give power to all sea creatures.")
-                    .modelName("model.liquid.water.")
-                    .imageNumber((short) IconConstants.ICON_LIQUID_WATER)
+        private static void registerSenetBoardAdvanced() throws IOException {
+            senetBoardAdvanced = new ItemTemplateBuilder("arathok.ashfall.senet.boardAdvanced").name("Advanced Senet Board", "Advanced Senet Boards",
+                            "An advanced Senet game board. Instead of 16 fields it has 30 fields each player must pass with enhanced rules. Maybe you can get a Toymaker to write the rules down for you.")
+                    .modelName("model.ashfall.senet.boardAdvanced.")
+                    .imageNumber((short) IconConstants.ICON_SPICE_NUTMEG)
                     .itemTypes(new short[]{
-                            ItemTypes.ITEM_TYPE_LIQUID
+                            ItemTypes.ITEM_TYPE_NAMED,
+                            ItemTypes.ITEM_TYPE_REPAIRABLE,
+                            ItemTypes.ITEM_TYPE_WOOD,
+
 
                     })
 
-                    .decayTime(Long.MAX_VALUE)
-                    .dimensions(5, 5, 5)
-                    .weightGrams(10)
+                    .decayTime(9072000L)
+                    .dimensions(12000, 500, 100)
+                    .weightGrams(30000)
                     .behaviourType((short) 1) // ITEM
                     .build();
 
-            essenceOfSeaId = essenceOfSea.getTemplateId();
+            senetBoardAdvancedId = senetBoardAdvanced.getTemplateId();
+
+            CreationEntryCreator.createAdvancedEntry(SkillList.TOYMAKING, ItemList.shaft, ItemList.clothYard, senetBoardAdvancedId, true, false, 0f, false, false,0,5, CreationCategories.TOYS)
+                    .addRequirement(new CreationRequirement(1, ItemList.dyeRed, 2, true))
+                    .addRequirement(new CreationRequirement(2, ItemList.dyeGreen, 2, true))
+                    .addRequirement(new CreationRequirement(3, ItemList.dyeBlue, 2, true))
+                    .addRequirement(new CreationRequirement(4, ItemList.dyeBlue, 2, true))
+                    .addRequirement(new CreationRequirement(5, ItemList.dyeWhite, 15, true))
+                    .addRequirement(new CreationRequirement(6, ItemList.clothYard,29, true))
+                    .addRequirement(new CreationRequirement(7, ItemList.shaft, 39, true))
+                    .addRequirement(new CreationRequirement(8, ItemList.nailsIronSmall, 20, true));
         }
 
-        private static void registerWaningCrescent() throws IOException {
-            waningCrescent = new ItemTemplateBuilder("arathok.ashfall.libArtifact").name("Waning Crescent", "Waning Crescents",
-                            "A scythe from the gods. Libila used to carry it but she lost it when the Volcano erupted.")
-                    .modelName("model.weapon.scythe.")
-                    .imageNumber((short) IconConstants.ICON_WEAPON_SCYTHE)
+        private static void registerSenetFigurineWR() throws IOException {
+            senetFigurineWR = new ItemTemplateBuilder("arathok.ashfall.senet.figWR").name("Senet white figurine with ruby head", "Figurines",
+                            "One of six Senet game figurines. This one is colored white and has a Ruby head.")
+                    .modelName("model.ashfall.senet.figurine.wr")
+                    .imageNumber((short) IconConstants.ICON_DECO_MARBLE_BRAZIER_PILLAR)
                     .itemTypes(new short[]{
 
                             ItemTypes.ITEM_TYPE_NAMED,
                             ItemTypes.ITEM_TYPE_REPAIRABLE,
-                            ItemTypes.ITEM_TYPE_METAL,
-                            ItemTypes.ITEM_TYPE_WEAPON,
-                            ItemTypes.ITEM_TYPE_WEAPON_SLASH,
-                            ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                            ItemTypes.ITEM_TYPE_NOTRADE,
-                            ItemTypes.ITEM_TYPE_NOSELLBACK,
-                            ItemTypes.ITEM_TYPE_ARTIFACT,
+                            ItemTypes.ITEM_TYPE_STONE,
+
 
                     })
                     .decayTime(Long.MAX_VALUE)
                     .dimensions(5, 10, 80)
-                    .weightGrams(2400).material(Materials.MATERIAL_SERYLL)
-                    .behaviourType((short) 35) // WEAPON
-                    .combatDamage(40) // HAMMER OF MAG
-                    .bodySpaces(MiscConstants.EMPTY_BYTE_PRIMITIVE_ARRAY)
-                    .primarySkill(SkillList.SCYTHE)
+                    .weightGrams(10000).material(Materials.MATERIAL_MARBLE)
+                    .behaviourType((short) 1) // ITEM
+
+
+
                     .difficulty(90) // no hard lock
                     .build();
 
-            waningCrescentId = waningCrescent.getTemplateId();
+            senetFigurineWRId = senetFigurineWR.getTemplateId();
+
+            CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.ruby, ItemList.marbleBrick, senetFigurineWRId, true, true, 0f, false, false,0,5, CreationCategories.TOYS);
 
         }
 
-        private static void registerThornOfFo() throws IOException {
-            thornOfFo = new ItemTemplateBuilder("arathok.ashfall.foArtifact").name("Thorn Of Fo", "Thorn of Fo",
-                            "A needle from the gods. Fo used it to sever the ground on Ashfall.")
-                    .modelName("model.tool.needle.")
-                    .imageNumber((short) IconConstants.ICON_TOOL_NEEDLE)
-                    .itemTypes(new short[]{
+    private static void registerSenetFigurineWG() throws IOException {
+        senetFigurineWG = new ItemTemplateBuilder("arathok.ashfall.senet.figWG").name("Senet white figurine with emerald head", "Figurines",
+                        "One of six Senet game figurines. This one is colored white and has an emerald head.")
+                .modelName("model.ashfall.senet.figurine.wg")
+                .imageNumber((short) IconConstants.ICON_DECO_MARBLE_BRAZIER_PILLAR)
+                .itemTypes(new short[]{
 
-                            ItemTypes.ITEM_TYPE_NAMED,
-                            ItemTypes.ITEM_TYPE_REPAIRABLE,
-                            ItemTypes.ITEM_TYPE_TOOL,
-                            ItemTypes.ITEM_TYPE_METAL,
-                            ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                            ItemTypes.ITEM_TYPE_NOTRADE,
-                            ItemTypes.ITEM_TYPE_NOSELLBACK,
-                            ItemTypes.ITEM_TYPE_ARTIFACT,
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
 
-                    })
-                    .decayTime(Long.MAX_VALUE)
-                    .dimensions(5, 5, 1)
-                    .weightGrams(10).material(Materials.MATERIAL_SERYLL)
-                    .behaviourType((short) 1) // Item
-                    .primarySkill(SkillList.CLOTHTAILORING)
-                    .difficulty(90) // no hard lock
-                    .build();
 
-            thornOfFoId = thornOfFo.getTemplateId();
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(10000).material(Materials.MATERIAL_MARBLE)
+                .behaviourType((short) 1) // ITEM
 
-        }
 
-        private static void registerHeartOfUttacha() throws IOException {
-            heartOfUttacha = new ItemTemplateBuilder("arathok.ashfall.uttachaArtifact").name("Heart of Uttacha", "Heart of Uttacha",
-                            "The heart of the worm god. Its still beating and is said to give superior regeneration to its user.")
-                    .modelName("model.item.heart.")
-                    .imageNumber((short) IconConstants.ICON_HEART)
-                    .itemTypes(new short[]{
+                .difficulty(90) // no hard lock
+                .build();
 
-                            ItemTypes.ITEM_TYPE_NAMED,
-                            ItemTypes.ITEM_TYPE_REPAIRABLE,
-                            ItemTypes.ITEM_TYPE_TOOL,
-                            ItemTypes.ITEM_TYPE_METAL,
-                            ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                            ItemTypes.ITEM_TYPE_NOTRADE,
-                            ItemTypes.ITEM_TYPE_NOSELLBACK,
-                            ItemTypes.ITEM_TYPE_ARTIFACT,
+        senetFigurineWGId = senetFigurineWG.getTemplateId();
 
-                    })
-                    .decayTime(Long.MAX_VALUE)
-                    .dimensions(5, 5, 1)
-                    .weightGrams(10).material(Materials.MATERIAL_FLESH)
-                    .behaviourType((short) 1) // Item
-                    .primarySkill(SkillList.GROUP_HEALING)
-                    .difficulty(90) // no hard lock
-                    .build();
+        CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.emerald, ItemList.marbleBrick, senetFigurineWGId, true, true, 0f, false, false, 0, 5, CreationCategories.TOYS);
 
-            heartOfUttachaId = heartOfUttacha.getTemplateId();
+    }
 
-        }
+    private static void registerSenetFigurineWB() throws IOException {
+        senetFigurineWB = new ItemTemplateBuilder("arathok.ashfall.senet.figWB").name("Senet white figurine with sapphire head", "Figurines",
+                        "One of six Senet game figurines. This one is colored white and has a sapphire head.")
+                .modelName("model.ashfall.senet.figurine.wb")
+                .imageNumber((short) IconConstants.ICON_DECO_MARBLE_BRAZIER_PILLAR)
+                .itemTypes(new short[]{
 
-        private static void registerEyeOfValrei() throws IOException {
-            eyeOfValrei = new ItemTemplateBuilder("arathok.ashfall.valreiArtifact").name("Eye of Valrei", "Eye of Valrei",
-                            "The Ever watchfull eye of Valrei. Its the window to the soul and is said to give superior magical energies to its user.")
-                    .modelName("model.item.valrei.")
-                    .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
-                    .itemTypes(new short[]{
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
 
-                            ItemTypes.ITEM_TYPE_NAMED,
-                            ItemTypes.ITEM_TYPE_REPAIRABLE,
-                            ItemTypes.ITEM_TYPE_TOOL,
-                            ItemTypes.ITEM_TYPE_METAL,
-                            ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                            ItemTypes.ITEM_TYPE_NOTRADE,
-                            ItemTypes.ITEM_TYPE_NOSELLBACK,
-                            ItemTypes.ITEM_TYPE_ARTIFACT,
 
-                    })
-                    .decayTime(Long.MAX_VALUE)
-                    .dimensions(5, 5, 1)
-                    .weightGrams(10).material(Materials.MATERIAL_ADAMANTINE)
-                    .behaviourType((short) 1) // Item
-                    .primarySkill(SkillList.GROUP_RELIGION)
-                    .difficulty(90) // no hard lock
-                    .build();
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(10000).material(Materials.MATERIAL_MARBLE)
+                .behaviourType((short) 1) // ITEM
 
-            eyeOfValreiId = eyeOfValrei.getTemplateId();
 
-        }
+                .difficulty(90) // no hard lock
+                .build();
 
-        private static void registerFlaskOfVynora() throws IOException {
-            flaskOfVynora = new ItemTemplateBuilder("arathok.ashfall.vynoraArtifact").name("Flask of Vynora", "Flask of Vynora",
-                            "Fo stole it to create the volcano eruption creating Ashfall. It contains the essence of the Ocean which makes its user swim faster.")
-                    .modelName("model.item.valrei.")
-                    .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
-                    .itemTypes(new short[]{
+        senetFigurineWBId = senetFigurineWB.getTemplateId();
 
-                            ItemTypes.ITEM_TYPE_NAMED,
-                            ItemTypes.ITEM_TYPE_REPAIRABLE,
-                            ItemTypes.ITEM_TYPE_TOOL,
-                            ItemTypes.ITEM_TYPE_METAL,
-                            ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                            ItemTypes.ITEM_TYPE_NOTRADE,
-                            ItemTypes.ITEM_TYPE_NOSELLBACK,
-                            ItemTypes.ITEM_TYPE_ARTIFACT,
-                            ItemTypes.ITEM_TYPE_HOLLOW,
+        CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.sapphire, ItemList.marbleBrick, senetFigurineWBId, true, true, 0f, false, false, 0, 5, CreationCategories.TOYS);
 
-                    })
-                    .decayTime(Long.MAX_VALUE)
-                    .dimensions(10, 10, 10)
-                    .weightGrams(10).material(Materials.MATERIAL_ADAMANTINE)
-                    .behaviourType((short) 1) // Item
-                    .primarySkill(SkillList.GROUP_RELIGION)
-                    .difficulty(90) // no hard lock
-                    .build();
+    }
 
-            flaskOfVynoraId = flaskOfVynora.getTemplateId();
+    private static void registerSenetFigurineBR() throws IOException {
+        senetFigurineBR = new ItemTemplateBuilder("arathok.ashfall.senet.figBR").name("Senet black figurine with ruby head", "Figurines",
+                        "One of six Senet game figurines. This one is colored black and has a ruby head.")
+                .modelName("model.ashfall.senet.figurine.br")
+                .imageNumber((short) IconConstants.ICON_FRAGMENT_SLATE)
+                .itemTypes(new short[]{
 
-        }
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(10000).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                .difficulty(90) // no hard lock
+                .build();
+
+        senetFigurineBRId = senetFigurineBR.getTemplateId();
+
+        CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.ruby, ItemList.slateBrick, senetFigurineBRId, true, true, 0f, false, false,0,5, CreationCategories.TOYS);
+
+    }
+
+    private static void registerSenetFigurineBG() throws IOException {
+        senetFigurineBG = new ItemTemplateBuilder("arathok.ashfall.senet.figBG").name("Senet black figurine with emerald head", "Figurines",
+                        "One of six Senet game figurines. This one is colored black and has an emerald head.")
+                .modelName("model.ashfall.senet.figurine.bg")
+                .imageNumber((short) IconConstants.ICON_FRAGMENT_SLATE)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(10000).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                .difficulty(90) // no hard lock
+                .build();
+
+        senetFigurineBGId = senetFigurineBG.getTemplateId();
+
+        CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.emerald, ItemList.slateBrick, senetFigurineBGId, true, true, 0f, false, false,0,5, CreationCategories.TOYS);
+
+    }
+
+    private static void registerSenetFigurineBB() throws IOException {
+        senetFigurineBB = new ItemTemplateBuilder("arathok.ashfall.senet.figBB").name("Senet black figurine with sapphire head", "Figurines",
+                        "One of six Senet game figurines. This one is colored black and has a sapphire head.")
+                .modelName("model.ashfall.senet.figurine.bb")
+                .imageNumber((short) IconConstants.ICON_FRAGMENT_SLATE)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_STONE,
+
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(10000).material(Materials.MATERIAL_SLATE)
+                .behaviourType((short) 1) // ITEM
+
+
+
+                .difficulty(90) // no hard lock
+                .build();
+
+        senetFigurineBBId = senetFigurineBB.getTemplateId();
+
+        CreationEntryCreator.createSimpleEntry(SkillList.TOYMAKING, ItemList.sapphire, ItemList.slateBrick, senetFigurineBBId, true, true, 0f, false, false,0,5, CreationCategories.TOYS);
+
+    }
+
 
         public static void register() throws IOException {
 
-            registerSpice();
-            registerEssenceOfSea();
-            registerEyeOfValrei();
-            registerHeartOfUttacha();
-            registerThornOfFo();
-            registerWaningCrescent();
-            registerFlaskOfVynora();
-
+            registerSenetRules();
+            registerSenetDiceBlack();
+            registerSenetDiceWhite();
+            registerSenetBoardSimple();
+            registerSenetBoardAdvanced();
+            registerSenetFigurineWR();
+            registerSenetFigurineWG();
+            registerSenetFigurineWB();
+            registerSenetFigurineBR();
+            registerSenetFigurineBG();
+            registerSenetFigurineBB();
         }
 
     }

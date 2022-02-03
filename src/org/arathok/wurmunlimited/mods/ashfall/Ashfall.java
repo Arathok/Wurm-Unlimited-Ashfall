@@ -5,6 +5,7 @@ import com.wurmonline.server.creatures.Communicator;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.ArtifactBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
+import org.arathok.wurmunlimited.mods.ashfall.senet.SenetItems;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
@@ -61,7 +62,8 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         try{
 
             AshfallItems.register();
-            logger.log(Level.INFO, "Alchemy is Done loading its Item Templates! Thank you Coldie!");
+            SenetItems.register();
+            logger.log(Level.INFO, "Done with item Register");
 
         } catch (IOException e) {
             // TODO Auto-generated catch block
@@ -79,6 +81,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         // TODO Auto-generated method stub
         AshfallCreatures.createCreatureTemplates();
         ModActions.registerBehaviourProvider(new ArtifactBehaviour());
+        logger.log(Level.INFO, "Done with Actions");
     }
 
 
@@ -88,6 +91,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         // TODO Auto-generated method stub
         ModCreatures.init();
         ModCreatures.addCreature(new Sandworm());
+        logger.log(Level.INFO, "Done with creatures");
     }
 
     @Override
