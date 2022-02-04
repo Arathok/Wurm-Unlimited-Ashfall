@@ -10,12 +10,12 @@ import java.util.List;
 public class DiceBehaviour implements BehaviourProvider {
 
     private final List<ActionEntry> roll;
-    private final DicePerformer dicePerformer;
+    private final DicePerformerForFun dicePerformerForFun;
 
     public DiceBehaviour() {
-        this.dicePerformer = new DicePerformer();
-        this.roll = Collections.singletonList(dicePerformer.actionEntry);
-        ModActions.registerActionPerformer(dicePerformer);
+        this.dicePerformerForFun = new DicePerformerForFun();
+        this.roll = Collections.singletonList(dicePerformerForFun.actionEntry);
+        ModActions.registerActionPerformer(dicePerformerForFun);
 
     }
 }

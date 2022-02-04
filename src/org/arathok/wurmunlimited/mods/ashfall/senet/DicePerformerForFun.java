@@ -9,11 +9,11 @@ import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPropagation;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 
-public class DicePerformer implements ActionPerformer {
+public class DicePerformerForFun implements ActionPerformer {
 
     public ActionEntry actionEntry;
 
-    public DicePerformer() {
+    public DicePerformerForFun() {
 
 
         actionEntry = new ActionEntryBuilder((short) ModActions.getNextActionId(), "roll dice", "rolling dice", new int[]{
@@ -43,8 +43,6 @@ public class DicePerformer implements ActionPerformer {
 
     @Override
     public boolean action(Action action, Creature performer, Item target, short num, float counter) {
-        boolean heal = false;
-        boolean playerFound = false;
 
         //Alchemy.logger.log(Level.INFO, "BLAH BLAH HE PERFORMS");
 
@@ -58,6 +56,14 @@ public class DicePerformer implements ActionPerformer {
 
 
         }
+        performer.getCommunicator().sendAlertServerMessage("You read the rules of Senet");
+        performer.getCommunicator().sendBml(800,800,true,true,"To play an unautomated game right click your dice instrument and select, --just roll for fun--." +
+                "Otherwise the game will respect the rules of the game and move your figurines automatically. To setup an automated game, place the game board, align it with the world and place the figurines on the according starting fields. then decide who rolls first (for example with two --just for fun rolls). Then have the other player stand on the same tile as you, with the starting player selecting -- roll dice--  "
+                ,250,250,250,"Setup instructions:");
+
+        performer.getCommunicator().sendBml(800,800,true,true,"To play an unautomated game right click your dice instrument and select, --just roll for fun--." +
+                        "Otherwise the game will respect the rules of the game and move your figurines automatically. To setup an automated game, place the game board, align it with the world and place the figurines on the according starting fields. then decide who rolls first (for example with two --just for fun rolls). Then have the other player stand on the same tile as you, with the starting player selecting -- roll dice--  "
+                ,250,250,250,"Setup instructions:");
 
         return propagate(action,
                 ActionPropagation.FINISH_ACTION,

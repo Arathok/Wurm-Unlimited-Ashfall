@@ -5,6 +5,8 @@ import com.wurmonline.server.creatures.Communicator;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.ArtifactBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
+import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.SenetItems;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
@@ -81,6 +83,8 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         // TODO Auto-generated method stub
         AshfallCreatures.createCreatureTemplates();
         ModActions.registerBehaviourProvider(new ArtifactBehaviour());
+        ModActions.registerBehaviourProvider(new DiceBehaviour());
+        ModActions.registerBehaviourProvider(new RuleBehaviour());
         logger.log(Level.INFO, "Done with Actions");
     }
 
