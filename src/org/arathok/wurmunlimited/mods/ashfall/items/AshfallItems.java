@@ -43,7 +43,7 @@ public class AshfallItems {
                 })
 
                 .decayTime(Long.MAX_VALUE)
-                .dimensions(5, 5, 5)
+                .dimensions(1, 1, 1)
                 .weightGrams(10)
                 .behaviourType((short) 1) // ITEM
                 .build();
