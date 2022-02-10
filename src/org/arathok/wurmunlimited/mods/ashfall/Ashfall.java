@@ -2,7 +2,7 @@ package org.arathok.wurmunlimited.mods.ashfall; // HELLO GITHUB!
 
 import com.wurmonline.server.creatures.Communicator;
 
-import org.arathok.wurmunlimited.mods.ashfall.artifacts.ArtifactBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
@@ -11,6 +11,7 @@ import org.arathok.wurmunlimited.mods.ashfall.senet.SenetItems;
 import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
+import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviours;
 
 import java.io.IOException;
 import java.util.Properties;
@@ -49,6 +50,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         } catch (CannotCompileException e) {
             e.printStackTrace();
         }*/
+        ModVehicleBehaviours.init();
     }
         @Override
     public boolean onPlayerMessage(Communicator arg0, String arg1) {
@@ -65,6 +67,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
             AshfallItems.register();
             SenetItems.register();
+            FlaskOfVynora.register();
             logger.log(Level.INFO, "Done with item Register");
 
         } catch (IOException e) {
@@ -85,6 +88,9 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModActions.registerBehaviourProvider(new ArtifactBehaviour());
         ModActions.registerBehaviourProvider(new DiceBehaviour());
         ModActions.registerBehaviourProvider(new RuleBehaviour());
+        ModActions.registerBehaviourProvider(new FlaskOfVynoraBehaviour());
+        ModActions.registerActionPerformer(new MountFlaskOfVynoraPerformer());
+        ModActions.registerActionPerformer(new DismountFlaskOfVynoraPerformer());
         logger.log(Level.INFO, "Done with Actions");
     }
 
@@ -96,6 +102,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModCreatures.init();
         ModCreatures.addCreature(new Sandworm());
         logger.log(Level.INFO, "Done with creatures");
+
     }
 
     @Override

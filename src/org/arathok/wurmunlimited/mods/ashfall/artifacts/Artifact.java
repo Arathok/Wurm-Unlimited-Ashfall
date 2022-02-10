@@ -9,12 +9,13 @@ public class Artifact {
    public Long ownerId;
    public Item item;
    public Long soulsHarvested;
-   public Long nextHeartBeat;
-   public Long nextEyeOpen;
-   public Long nextEssence;
+   public Long nextHeartBeat=0L;
+   public Long nextEyeOpen=0L;
+   public Long nextEssence=0L;
    public Long nextEssenceLost;
    public Long previousOwnerId;
    public Long ownershipBegin;
+   public boolean foundBySameUser;
    public Long uses;
    public Long calloutTimer=3600000L;
 

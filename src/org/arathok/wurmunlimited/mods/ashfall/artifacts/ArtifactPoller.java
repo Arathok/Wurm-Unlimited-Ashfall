@@ -1,18 +1,21 @@
 package org.arathok.wurmunlimited.mods.ashfall.artifacts;
 
-import com.wurmonline.server.*;
+import com.wurmonline.server.FailedException;
+import com.wurmonline.server.Items;
+import com.wurmonline.server.MessageServer;
+import com.wurmonline.server.Players;
+import com.wurmonline.server.behaviours.Vehicle;
+import com.wurmonline.server.behaviours.Vehicles;
 import com.wurmonline.server.bodys.Wound;
 import com.wurmonline.server.bodys.Wounds;
 import com.wurmonline.server.items.Item;
 import com.wurmonline.server.items.ItemFactory;
 import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.players.Player;
-import com.wurmonline.server.skills.NoSuchSkillException;
-import com.wurmonline.server.skills.SkillList;
 import org.arathok.wurmunlimited.mods.ashfall.Ashfall;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
-import org.gotti.wurmunlimited.modsupport.actions.ActionPropagation;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,7 +29,7 @@ public class ArtifactPoller {
     boolean artifactsGood=false;
     void ArtifactCheckAndBuild()
     {
-        Long time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
         Item[] allItems = Items.getAllItems();
 
         for (Item oneItem : allItems) {
@@ -84,7 +87,7 @@ public class ArtifactPoller {
 
     public void ArtifactCallOut()
     {
-        Long time = System.currentTimeMillis();
+        long time = System.currentTimeMillis();
         Iterator<Artifact> artifactsCaller = artifacts.iterator();
         while (artifactsCaller.hasNext()) {
             Artifact artifactInQuestion = artifactsCaller.next();
@@ -116,12 +119,12 @@ public class ArtifactPoller {
                 artifactInQuestion.previousOwnerId=artifactInQuestion.ownerId;
                 artifactInQuestion.ownerId=artifactInQuestion.item.getOwnerId();
                 artifactInQuestion.owner=Players.getInstance().getPlayerOrNull(artifactInQuestion.item.getOwnerId());
-                Long holdtime = time-artifactInQuestion.ownershipBegin;
+                long holdtime = time-artifactInQuestion.ownershipBegin;
                 holdtime = holdtime / 1000;
-                Long holdtimeDays =  holdtime/86400;
-                Long holdtimeHours= (holdtime%86400)/3600;
-                Long holdtimeMinutes = (holdtime%3600)/60;
-                Long holdtimeSeconds = holdtime%60;
+                long holdtimeDays =  holdtime/86400;
+                long holdtimeHours= (holdtime%86400)/3600;
+                long holdtimeMinutes = (holdtime%3600)/60;
+                long holdtimeSeconds = holdtime%60;
 
                 MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" has a new owner!",(byte) 1);
                 MessageServer.broadCastSafe("the previous ownder held it for "+holdtimeDays + "d, " + holdtimeHours+"h, "+holdtimeMinutes+ "m, "+holdtimeSeconds+ "s.",(byte)1);
@@ -131,75 +134,115 @@ public class ArtifactPoller {
 
         }
     }
-    public void ArtifactEffectPoller()
-    {
+    public void ArtifactEffectPoller() {
         long time = System.currentTimeMillis();
         Player playerinQuestion = null;
-        Iterator <Artifact> ownerfinder = artifacts.iterator();
+        Iterator<Artifact> ownerfinder = artifacts.iterator();
         while (ownerfinder.hasNext()) {
             Artifact aArtifact = ownerfinder.next();
-            if (aArtifact.item.getTemplate().getName().contains("Uttacha") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null)
+            int index = artifacts.indexOf(aArtifact);
+            if (aArtifact.item.getTemplate().getName().contains("Uttacha") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
                 playerinQuestion = aArtifact.owner;
-            if (playerinQuestion != null)
-            if (!playerinQuestion.isOffline())
-            {
-                if (aArtifact.nextHeartBeat > time) {
-                    double healingPool = 1D;
-                    Wounds tWounds = playerinQuestion.getBody().getWounds();
-                    if (tWounds != null) {
-                        for (Wound w : tWounds.getWounds()) {
-                            if (w.getSeverity() <= healingPool) {
-                                healingPool -= w.getSeverity();
-                                w.heal();
+                if (playerinQuestion != null)
+                    if (!playerinQuestion.isOffline()) {
+                        if (aArtifact.nextHeartBeat > time) {
+                            double healingPool = 1D;
+                            Wounds tWounds = playerinQuestion.getBody().getWounds();
+                            if (tWounds != null) {
+                                for (Wound w : tWounds.getWounds()) {
+                                    if (w.getSeverity() <= healingPool) {
+                                        healingPool -= w.getSeverity();
+                                        w.heal();
 
-                            }
-                            if (w.getSeverity() > healingPool) {
-                                w.modifySeverity((int) -healingPool);
+                                    }
+                                    if (w.getSeverity() > healingPool) {
+                                        w.modifySeverity((int) -healingPool);
 
+                                    }
+                                }
                             }
+                            aArtifact.nextHeartBeat = time + 60000;
+                            artifacts.set(index, aArtifact);
                         }
                     }
-                    aArtifact.nextHeartBeat = time + 60000;
+            }
+
+            if (aArtifact.item.getTemplate().getName().contains("Valrei") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
+                playerinQuestion = aArtifact.owner;
+                if (playerinQuestion != null) {
+                    if (aArtifact.nextEyeOpen > time) {
+                        try {
+                            playerinQuestion.setFavor((playerinQuestion.getFavor() + 0.1F));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        aArtifact.nextEyeOpen = time + 10000;
+                        artifacts.set(index, aArtifact);
+                    }
                 }
             }
-            if (aArtifact.item.getTemplate().getName().contains("Vynora")&&Players.getInstance().getPlayerOrNull(aArtifact.ownerId)!=null)
+
+            if (aArtifact.item.getTemplate().getName().contains("Valrei") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
                 playerinQuestion = aArtifact.owner;
-            if (playerinQuestion!=null) {
-                double oldStrength = 0;
-                double oldStamina = 0;
-                try {
-                    oldStrength = playerinQuestion.getSkills().getSkill(SkillList.BODY_STRENGTH).getKnowledge();
-                    oldStamina = playerinQuestion.getSkills().getSkill(SkillList.BODY_STAMINA).getKnowledge();
-                    
-                } catch (NoSuchSkillException e) {
-                    e.printStackTrace();
+                if (playerinQuestion != null) {
+                    if (aArtifact.nextEyeOpen < time) {
+                        try {
+                            playerinQuestion.setFavor((playerinQuestion.getFavor() + 0.1F));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        aArtifact.nextEyeOpen = time + 10000;
+                        artifacts.set(index, aArtifact);
+                    }
                 }
-                if (playerinQuestion.isSwimming()) {
+            }
 
-                    if (aArtifact.nextEssenceLost < time && aArtifact.item.getItemsAsArray().length > 0) {
-                        playerinQuestion.setSkill(SkillList.BODY_STRENGTH, 99.0F);
-                        playerinQuestion.setSkill(SkillList.BODY_STAMINA, 99.0F);
-                        Item[] essences;
-                        essences = aArtifact.item.getItemsAsArray();
-                        Items.destroyItem(essences[0].getWurmId());
-                        aArtifact.nextEssenceLost = time + 1000;
+            if (aArtifact.item.getTemplate().getName().contains("Vynora") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
+                playerinQuestion = aArtifact.owner; // get owner
+                if (playerinQuestion != null) {     // if there is owner
+                    Vehicle v = Vehicles.getVehicleForId(aArtifact.item.getWurmId()); // get vehicle
+                    if (aArtifact.nextEssence > time && v.getPosZ()> 20) {              // if above water level and next essence time is around
+                        Set<Item>essences = aArtifact.item.getItems();                  // get num of essences
+                        Item essence=null;
+                        if (essences.size()<100) {                                      // if less than 100 refill
+                            try {
+                                essence = ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, (byte) 3, "Vynora");
+                            } catch (FailedException e) {
+                                e.printStackTrace();
+                            } catch (NoSuchTemplateException e) {
+                                e.printStackTrace();
+                                Ashfall.logger.log(Level.SEVERE, "NO ESSENCE TEMPLATE! NUUUUUUUUUUUUU! >:C ", e);
+                            }
+                            if (essence != null)
+                                aArtifact.item.insertItem(essence, true);
+                            aArtifact.nextEssence = time + 18000;
+                            artifacts.set(index, aArtifact);
+                        }
+                    }
+                    else
+                    {
+                        if (v.getPosZ()<4)
+                        {
 
-                    } else {
+                                Set <Item> essences=aArtifact.item.getItems();
+                                if (aArtifact.nextEssenceLost>time&& !essences.isEmpty()&&aArtifact.item.getItems()!=null)
+                                {
+                                    Item essence = aArtifact.item.getFirstContainedItem();
+                                    aArtifact.item.getItems().remove(essence);
+                                    aArtifact.nextEssenceLost=time+3;
+                                    artifacts.set(index,aArtifact);
+                                }
 
-                        playerinQuestion.setSkill(SkillList.BODY_STAMINA,(float)oldStamina);
-                        playerinQuestion.setSkill(SkillList.BODY_STRENGTH,(float)oldStrength);
+
+                        }
 
                     }
                 }
             }
+
         }
-
     }
 
-    public void EyeofValreiPoller()
-    {
-
-    }
 
     public void VynorasFlaskPoller()
     {

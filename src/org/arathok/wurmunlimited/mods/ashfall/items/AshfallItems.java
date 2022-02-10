@@ -5,13 +5,14 @@ import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.IconConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
+import org.gotti.wurmunlimited.modsupport.items.ModItems;
 
 import java.io.IOException;
 
 public class AshfallItems {
 
-    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei, flaskOfVynora, spice, essenceOfSea, ashPestPustule, ashPestPus;
-    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId, flaskOfVynoraId, spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId;
+    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei,  spice, essenceOfSea, ashPestPustule, ashPestPus;
+    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId,  spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId;
 
     private static void registerSpice() throws IOException {
         spice = new ItemTemplateBuilder("arathok.ashfall.spice").name("Spice", "Spice",
@@ -170,35 +171,7 @@ public class AshfallItems {
 
     }
 
-    private static void registerFlaskOfVynora() throws IOException {
-        flaskOfVynora = new ItemTemplateBuilder("arathok.ashfall.vynoraArtifact").name("Flask of Vynora", "Flask of Vynora",
-                        "Fo stole it to create the volcano eruption creating Ashfall. It contains the essence of the Ocean which makes its user swim faster.")
-                .modelName("model.item.valrei.")
-                .imageNumber((short) IconConstants.ICON_ARTIFACT_VALREI)
-                .itemTypes(new short[]{
 
-                        ItemTypes.ITEM_TYPE_NAMED,
-                        ItemTypes.ITEM_TYPE_REPAIRABLE,
-                        ItemTypes.ITEM_TYPE_TOOL,
-                        ItemTypes.ITEM_TYPE_METAL,
-                        ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                        ItemTypes.ITEM_TYPE_NOTRADE,
-                        ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
-                        ItemTypes.ITEM_TYPE_HOLLOW,
-
-                })
-                .decayTime(Long.MAX_VALUE)
-                .dimensions(10, 10, 10)
-                .weightGrams(10).material(Materials.MATERIAL_ADAMANTINE)
-                .behaviourType((short) 1) // Item
-                .primarySkill(SkillList.GROUP_RELIGION)
-                .difficulty(90) // no hard lock
-                .build();
-
-        flaskOfVynoraId = flaskOfVynora.getTemplateId();
-
-    }
 
     public static void register() throws IOException {
 
@@ -208,7 +181,7 @@ public class AshfallItems {
         registerHeartOfUttacha();
         registerThornOfFo();
         registerWaningCrescent();
-        registerFlaskOfVynora();
+
 
     }
 
