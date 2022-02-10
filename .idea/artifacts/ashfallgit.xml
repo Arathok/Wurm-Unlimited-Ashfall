@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ashfallgit">
+    <output-path>$PROJECT_DIR$/out/artifacts/ashfallgit</output-path>
+    <root id="archive" name="ashfall.jar">
+      <element id="module-output" name="Ashfall" />
+    </root>
+  </artifact>
+</component>
