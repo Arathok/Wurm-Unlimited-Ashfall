@@ -159,7 +159,7 @@ public class ArtifactPoller {
                 long holdtimeMinutes = (holdtime%3600)/60;
                 long holdtimeSeconds = holdtime%60;
 
-                MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" has a new owner!",(byte) 1);
+                MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" has a new owner!("+Players.getInstance().getPlayerOrNull(artifactInQuestion.item.getOwnerId()).getName()+")" ,(byte) 1);
                 MessageServer.broadCastSafe("the previous ownder held it for "+holdtimeDays + "d, " + holdtimeHours+"h, "+holdtimeMinutes+ "m, "+holdtimeSeconds+ "s.",(byte)1);
                 Ashfall.logger.log(Level.FINE,"new Owner: "+ Players.getInstance().getPlayerOrNull(artifactInQuestion.ownerId));
 
