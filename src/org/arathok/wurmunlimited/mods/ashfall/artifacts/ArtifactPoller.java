@@ -32,27 +32,7 @@ public class ArtifactPoller {
     {
         int[] newArtifactToCreate ={AshfallItems.waningCrescentId,AshfallItems.thornOfFoId,AshfallItems.heartOfUttachaId,AshfallItems.heartOfUttachaId,FlaskOfVynora.flaskOfVynoraId,};
 
-        for (int i =0; i< 5; i++) {
-            Random x = new Random();
-            int lowx = 100;
-            int highx = 3800;
-            int resultx = x.nextInt(highx) + lowx;
 
-            Random y = new Random();
-            int lowy = 100;
-            int highy = 3800;
-            int resulty = y.nextInt(highy) + lowy;
-            Item newArtifact = null;
-            try {
-
-                newArtifact = ItemFactory.createItem(newArtifactToCreate[i], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
-            } catch (NoSuchTemplateException e) {
-                e.printStackTrace();
-                Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
-            } catch (FailedException e) {
-                e.printStackTrace();
-            }
-        }
 
         long time = System.currentTimeMillis();
         Item[] allItems = Items.getAllItems();
@@ -98,8 +78,67 @@ public class ArtifactPoller {
 
             }
         }
-        if (waningCrescent.item == null||eyeOfValrei.item==null||thornOfFo.item==null||flaskOfVynora.item==null||heartOfUttacha.item==null)
-        Ashfall.logger.log(Level.SEVERE,"One or more artifacts were not found!! Admin probably forgot to spawn them, dumb fuck.");
+        if (waningCrescent.item == null||eyeOfValrei.item==null||thornOfFo.item==null||flaskOfVynora.item==null||heartOfUttacha.item==null) {
+            Ashfall.logger.log(Level.SEVERE, "One or more artifacts were not found!! Admin probably forgot to spawn them, dumb fuck.");
+            for (int i = 0; i < 5; i++) {
+                Random x = new Random();
+                int lowx = 100;
+                int highx = 3800;
+                int resultx = x.nextInt(highx) + lowx;
+
+                Random y = new Random();
+                int lowy = 100;
+                int highy = 3800;
+                int resulty = y.nextInt(highy) + lowy;
+                Item newArtifact = null;
+                try {
+
+                    newArtifact = ItemFactory.createItem(newArtifactToCreate[i], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+                } catch (NoSuchTemplateException e) {
+                    e.printStackTrace();
+                    Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+                } catch (FailedException e) {
+                    e.printStackTrace();
+                }
+            }
+            for (Item oneItem : allItems) {
+                if (oneItem.getTemplate().getName().contains("Crescent")) {
+                    waningCrescent.item = oneItem;
+                    waningCrescent.ownerId = oneItem.getOwnerId();
+                    waningCrescent.previousOwnerId = oneItem.getOwnerId();
+                    waningCrescent.ownershipBegin = time;
+                } else if (oneItem.getTemplate().getName().contains("Fo")) {
+                    thornOfFo.item = oneItem;
+                    thornOfFo.ownerId = oneItem.getOwnerId();
+                    thornOfFo.previousOwnerId = oneItem.getOwnerId();
+                    thornOfFo.ownershipBegin = time;
+                } else if (oneItem.getTemplate().getName().contains("Valrei")) {
+                    eyeOfValrei.item = oneItem;
+                    eyeOfValrei.ownerId = oneItem.getOwnerId();
+                    eyeOfValrei.previousOwnerId = oneItem.getOwnerId();
+                    eyeOfValrei.ownershipBegin = time;
+                } else if (oneItem.getTemplate().getName().contains("Heart")) {
+                    heartOfUttacha.item = oneItem;
+                    heartOfUttacha.ownerId = oneItem.getOwnerId();
+                    heartOfUttacha.previousOwnerId = oneItem.getOwnerId();
+                    heartOfUttacha.ownershipBegin = time;
+                } else if (oneItem.getTemplate().getName().contains("Flask")) {
+                    flaskOfVynora.item = oneItem;
+                    flaskOfVynora.ownerId = oneItem.getOwnerId();
+                    flaskOfVynora.previousOwnerId = oneItem.getOwnerId();
+                    flaskOfVynora.ownershipBegin = time;
+                    try {
+                        flaskOfVynora.item.insertItem(ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, null));
+                    } catch (FailedException e) {
+                        e.printStackTrace();
+                    } catch (NoSuchTemplateException e) {
+                        Ashfall.logger.log(Level.SEVERE, "there was no template registered! for essence of the sea!");
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        }
         else artifactsGood=true;
         if (artifactsGood) {
            artifacts.add(waningCrescent);
