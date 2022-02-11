@@ -15,6 +15,7 @@ public class Artifact {
    public Long nextEssenceLost;
    public Long previousOwnerId;
    public Long ownershipBegin;
+   public Long ownershipBeginDelayed;
    public boolean foundBySameUser;
    public Long uses;
    public Long calloutTimer=3600000L;

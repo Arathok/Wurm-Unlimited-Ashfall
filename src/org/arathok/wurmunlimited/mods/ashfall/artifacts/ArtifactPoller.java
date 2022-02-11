@@ -16,19 +16,44 @@ import org.arathok.wurmunlimited.mods.ashfall.Ashfall;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 public class ArtifactPoller {
 
     public static List<Artifact> artifacts = new LinkedList<>();
-    Artifact waningCrescent,thornOfFo,eyeOfValrei,flaskOfVynora,heartOfUttacha;
-    boolean artifactsGood=false;
-    void ArtifactCheckAndBuild()
+    static Artifact waningCrescent;
+    static Artifact thornOfFo;
+    static Artifact eyeOfValrei;
+    static Artifact flaskOfVynora;
+    static Artifact heartOfUttacha;
+    static boolean artifactsGood=false;
+  public static void ArtifactCheckAndBuild()
     {
+        int[] newArtifactToCreate ={AshfallItems.waningCrescentId,AshfallItems.thornOfFoId,AshfallItems.heartOfUttachaId,AshfallItems.heartOfUttachaId,FlaskOfVynora.flaskOfVynoraId,};
+
+        for (int i =0; i< 5; i++) {
+            Random x = new Random();
+            int lowx = 100;
+            int highx = 3800;
+            int resultx = x.nextInt(highx) + lowx;
+
+            Random y = new Random();
+            int lowy = 100;
+            int highy = 3800;
+            int resulty = y.nextInt(highy) + lowy;
+            Item newArtifact = null;
+            try {
+
+                newArtifact = ItemFactory.createItem(newArtifactToCreate[i], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+            } catch (NoSuchTemplateException e) {
+                e.printStackTrace();
+                Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+            } catch (FailedException e) {
+                e.printStackTrace();
+            }
+        }
+
         long time = System.currentTimeMillis();
         Item[] allItems = Items.getAllItems();
 
@@ -85,7 +110,7 @@ public class ArtifactPoller {
         }
     }
 
-    public void ArtifactCallOut()
+    public static void ArtifactCallOut()
     {
         long time = System.currentTimeMillis();
         Iterator<Artifact> artifactsCaller = artifacts.iterator();
@@ -106,20 +131,28 @@ public class ArtifactPoller {
         }
 
     }
-    public void ArtifactOwnerPoller()
+    public static void ArtifactOwnerPoller()
     {
-       Long time = System.currentTimeMillis();
+        boolean messageMerker=false;
+       long time = System.currentTimeMillis();
         Iterator<Artifact> artifactsPoller = artifacts.iterator();
         while (artifactsPoller.hasNext()) {
             Artifact artifactInQuestion = artifactsPoller.next();
             int index=artifacts.indexOf(artifactInQuestion);
-            if (artifactInQuestion.item.getOwnerId()!=artifactInQuestion.ownerId)
-            {
-                
+            if (artifactInQuestion.item.getOwnerId()!=artifactInQuestion.ownerId) {
+                artifactInQuestion.ownershipBeginDelayed = time + 900000;
+                artifactInQuestion.ownershipBegin=time;
                 artifactInQuestion.previousOwnerId=artifactInQuestion.ownerId;
                 artifactInQuestion.ownerId=artifactInQuestion.item.getOwnerId();
                 artifactInQuestion.owner=Players.getInstance().getPlayerOrNull(artifactInQuestion.item.getOwnerId());
-                long holdtime = time-artifactInQuestion.ownershipBegin;
+                artifacts.set(index,artifactInQuestion);
+                messageMerker = true;
+
+            }
+                if (artifactInQuestion.ownershipBeginDelayed<time&& messageMerker) {
+
+
+                long holdtime = time-artifactInQuestion.ownershipBegin-900000L;
                 holdtime = holdtime / 1000;
                 long holdtimeDays =  holdtime/86400;
                 long holdtimeHours= (holdtime%86400)/3600;
@@ -129,12 +162,14 @@ public class ArtifactPoller {
                 MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" has a new owner!",(byte) 1);
                 MessageServer.broadCastSafe("the previous ownder held it for "+holdtimeDays + "d, " + holdtimeHours+"h, "+holdtimeMinutes+ "m, "+holdtimeSeconds+ "s.",(byte)1);
                 Ashfall.logger.log(Level.FINE,"new Owner: "+ Players.getInstance().getPlayerOrNull(artifactInQuestion.ownerId));
-                artifacts.set(index,artifactInQuestion);
+
             }
 
         }
+
     }
-    public void ArtifactEffectPoller() {
+
+        public static void ArtifactEffectPoller() {
         long time = System.currentTimeMillis();
         Player playerinQuestion = null;
         Iterator<Artifact> ownerfinder = artifacts.iterator();
@@ -244,8 +279,67 @@ public class ArtifactPoller {
     }
 
 
-    public void VynorasFlaskPoller()
+    public static void ArtifactDisappear()
     {
+        long time = System.currentTimeMillis();
+        Iterator<Artifact> artifactsWirbler = artifacts.iterator();
+        while (artifactsWirbler.hasNext()) {
+            Artifact artifactInQuestion = artifactsWirbler.next();
+            int index=artifacts.indexOf(artifactInQuestion);
+            if (time > artifactInQuestion.ownershipBegin+2592000000L&&!Players.getInstance().getPlayerOrNull(artifactInQuestion.item.getOwnerId()).isFighting()) {
+
+                MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" Has disappeared! Where in the world can it be now?",(byte)1);
+                Ashfall.logger.log(Level.FINE, "Artifact disappeared");
+                artifactInQuestion.previousOwnerId=artifactInQuestion.item.getOwnerId();
+                int newArtifactToCreate = artifactInQuestion.item.getTemplateId();
+
+                Random qualityBetter = new Random();
+                int resultBetter = qualityBetter.nextInt(2);
+                int resultquality=0;
+                if (resultBetter==1) {
+
+                    Random quality = new Random();
+                    int low = (int)artifactInQuestion.item.getQualityLevel();
+                    int high = 100;
+                    resultquality = quality.nextInt(high);
+                }
+                else {
+                    Random quality = new Random();
+                    int low = 1;
+                    int high = (int) artifactInQuestion.item.getQualityLevel();
+                    resultquality = quality.nextInt(high);
+                }
+
+                Random x = new Random();
+                int lowx = 100;
+                int highx = 3800;
+                int resultx = x.nextInt(highx) + lowx;
+
+                Random y = new Random();
+                int lowy = 100;
+                int highy= 3800;
+                int resulty = y.nextInt(highy) + lowy;
+                Item newArtifact = null;
+                try {
+                     newArtifact=ItemFactory.createItem(newArtifactToCreate,(float)resultquality,(float) resultx,(float)resulty,10F,true,(byte)21,(byte)3,0,"gods");
+                } catch (NoSuchTemplateException e) {
+                    e.printStackTrace();
+                    Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate",e);
+                } catch (FailedException e) {
+                    e.printStackTrace();
+                }
+                if (artifactInQuestion.item != null) {
+                    Items.destroyItem(artifactInQuestion.item.getWurmId());
+                }
+                artifactInQuestion.item=newArtifact;
+                artifactInQuestion.ownerId=-10L;
+
+
+                artifacts.set(index,artifactInQuestion);
+            }
+
+
+        }
 
     }
 }

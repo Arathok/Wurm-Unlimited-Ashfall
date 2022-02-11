@@ -102,12 +102,18 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModCreatures.init();
         ModCreatures.addCreature(new Sandworm());
         logger.log(Level.INFO, "Done with creatures");
+        ArtifactPoller.ArtifactCheckAndBuild();
+
 
     }
 
     @Override
     public void onServerPoll() {
 
+        ArtifactPoller.ArtifactOwnerPoller();
+        ArtifactPoller.ArtifactCallOut();
+        ArtifactPoller.ArtifactDisappear();
+        ArtifactPoller.ArtifactEffectPoller();
 
     }
 
