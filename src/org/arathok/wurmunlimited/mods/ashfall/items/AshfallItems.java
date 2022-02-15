@@ -171,6 +171,64 @@ public class AshfallItems {
 
     }
 
+    private static void registerAshPestPustule() throws IOException {
+        ashPestPustule = new ItemTemplateBuilder("arathok.ashfall.AshpestPustule").name("Ashpest Pustule", "AshpestPustules",
+                        "A writhing smelly pustule, constantly pumping out pus which covers your body in stinky grey slime.")
+                .modelName("model.item.heart.")
+                .imageNumber((short) IconConstants.ICON_HEART)
+                .itemTypes(new short[]{
+
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_NODROP,
+                        ItemTypes.ITEM_TYPE_NODISCARD,
+                        ItemTypes.ITEM_TYPE_METAL,
+                        ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
+                        ItemTypes.ITEM_TYPE_NOTRADE,
+                        ItemTypes.ITEM_TYPE_NOSELLBACK,
+                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 5, 1)
+                .weightGrams(10).material(Materials.MATERIAL_FLESH)
+                .behaviourType((short) 1) // Item
+                .primarySkill(SkillList.GROUP_HEALING)
+                .difficulty(90) // no hard lock
+                .build();
+
+        ashPestPustuleId = ashPestPustule.getTemplateId();
+
+    }
+
+    private static void registerAshPestPus() throws IOException {
+        ashPestPus = new ItemTemplateBuilder("arathok.ashfall.AshpestPus").name("Ashpest Pus", "AshpestPus",
+                        "Grey, corny, sticky and stinky slime with little granules of ash. It makes you feel weak and you should probably get rid of it.")
+                .modelName("model.item.clay.")
+                .imageNumber((short) IconConstants.ICON_CLAY_PILE)
+                .itemTypes(new short[]{
+
+
+                        ItemTypes.ITEM_TYPE_NODROP,
+                        ItemTypes.ITEM_TYPE_NODISCARD,
+
+                        ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
+                        ItemTypes.ITEM_TYPE_NOTRADE,
+                        ItemTypes.ITEM_TYPE_NOSELLBACK,
+                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 5, 1)
+                .weightGrams(1000).material(Materials.MATERIAL_FLESH)
+                .behaviourType((short) 1) // Item
+                .primarySkill(SkillList.GROUP_HEALING)
+                .difficulty(90) // no hard lock
+                .build();
+
+        ashPestPusId = ashPestPus.getTemplateId();
+
+    }
+
 
 
     public static void register() throws IOException {
@@ -181,6 +239,8 @@ public class AshfallItems {
         registerHeartOfUttacha();
         registerThornOfFo();
         registerWaningCrescent();
+        registerAshPestPustule();
+        registerAshPestPus();
 
 
     }
