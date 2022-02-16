@@ -8,7 +8,7 @@ public class Ashpest {
     Long timeOfInfection;
     int numberOfPustules;
     Long nextPustule;
-    Long timeToheal;
+    Long timeToHeal;
 
 
 }

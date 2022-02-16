@@ -22,13 +22,13 @@ import java.util.logging.Level;
 public class ArtifactPoller {
 
     public static List<Artifact> artifacts = new LinkedList<>();
-    static Artifact waningCrescent;
-    static Artifact thornOfFo;
-    static Artifact eyeOfValrei;
-    static Artifact flaskOfVynora;
-    static Artifact heartOfUttacha;
+    static Artifact waningCrescent = new Artifact();
+    static Artifact thornOfFo = new Artifact();
+    static Artifact eyeOfValrei = new Artifact();
+    static Artifact flaskOfVynora = new Artifact();
+    static Artifact heartOfUttacha = new Artifact();
     static boolean artifactsGood=false;
-    static boolean crescentFound = false, thornFound = false, heartFound=false,eyeFound=false,flaskFound = true;
+    static boolean crescentFound = false, thornFound = false, heartFound=false,eyeFound=false,flaskFound = false;
   public static void ArtifactCheckAndBuild() {
       if (!artifactsGood) {
           int[] newArtifactToCreate = {AshfallItems.waningCrescentId, AshfallItems.thornOfFoId, AshfallItems.heartOfUttachaId, AshfallItems.eyeOfValreiId, FlaskOfVynora.flaskOfVynoraId,};
@@ -37,34 +37,41 @@ public class ArtifactPoller {
           long time = System.currentTimeMillis();
           Item[] allItems = Items.getAllItems();
 
+
+          Ashfall.logger.log(Level.SEVERE, "Searching for Artifacts...");
           for (Item oneItem : allItems) {
-              if (oneItem.getTemplate().getName().contains("Crescent")) {
+
+              if (oneItem.getTemplateId()==AshfallItems.waningCrescentId) {
                   waningCrescent.item = oneItem;
                   waningCrescent.ownerId = oneItem.getOwnerId();
                   waningCrescent.previousOwnerId = oneItem.getOwnerId();
                   waningCrescent.ownershipBegin = time;
                 crescentFound=true;
-              } else if (oneItem.getTemplate().getName().contains("Fo")) {
+              }
+              if (oneItem.getTemplateId()==AshfallItems.thornOfFoId) {
                   thornOfFo.item = oneItem;
                   thornOfFo.ownerId = oneItem.getOwnerId();
                   thornOfFo.previousOwnerId = oneItem.getOwnerId();
                   thornOfFo.ownershipBegin = time;
                   thornFound = true;
 
-              } else if (oneItem.getTemplate().getName().contains("Valrei")) {
+              }
+              if (oneItem.getTemplateId()==AshfallItems.eyeOfValreiId) {
                   eyeOfValrei.item = oneItem;
                   eyeOfValrei.ownerId = oneItem.getOwnerId();
                   eyeOfValrei.previousOwnerId = oneItem.getOwnerId();
                   eyeOfValrei.ownershipBegin = time;
                   eyeFound=true;
 
-              } else if (oneItem.getTemplate().getName().contains("Heart")) {
+              }
+              if (oneItem.getTemplateId()==AshfallItems.heartOfUttachaId) {
                   heartOfUttacha.item = oneItem;
                   heartOfUttacha.ownerId = oneItem.getOwnerId();
                   heartOfUttacha.previousOwnerId = oneItem.getOwnerId();
                   heartOfUttacha.ownershipBegin = time;
                   heartFound = true;
-              } else if (oneItem.getTemplate().getName().contains("Flask")) {
+              }
+              if (oneItem.getTemplateId()==FlaskOfVynora.flaskOfVynoraId) {
                   flaskOfVynora.item = oneItem;
                   flaskOfVynora.ownerId = oneItem.getOwnerId();
                   flaskOfVynora.previousOwnerId = oneItem.getOwnerId();
@@ -86,7 +93,7 @@ public class ArtifactPoller {
               artifactsGood=true;
           if(!artifactsGood) {
               if (!crescentFound) {
-                  Ashfall.logger.log(Level.SEVERE, "Artifact Crescent not found... spawning");
+                  Ashfall.logger.log(Level.SEVERE, "Artifact crescent not found... spawning");
 
                   Random x = new Random();
                   int lowx = 100;
@@ -97,21 +104,130 @@ public class ArtifactPoller {
                   int lowy = 100;
                   int highy = 3800;
                   int resulty = y.nextInt(highy) + lowy;
-                  Item newArtifact = null;
+
                   try {
 
-                      newArtifact = ItemFactory.createItem(newArtifactToCreate[1], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+
+                      ItemFactory.createItem(newArtifactToCreate[0], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
                   } catch (NoSuchTemplateException e) {
                       e.printStackTrace();
                       Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
                   } catch (FailedException e) {
                       e.printStackTrace();
                   }
-                  if (newArtifact!=null)
-                  newArtifact.setPosXYZ(resultx,resulty,0);
+
+
 
               }
-          }else artifactsGood = true;
+              if (!thornFound) {
+                  Ashfall.logger.log(Level.SEVERE, "Artifact thorn not found... spawning");
+
+                  Random x = new Random();
+                  int lowx = 100;
+                  int highx = 3800;
+                  int resultx = x.nextInt(highx) + lowx;
+
+                  Random y = new Random();
+                  int lowy = 100;
+                  int highy = 3800;
+                  int resulty = y.nextInt(highy) + lowy;
+
+                  try {
+
+
+                      ItemFactory.createItem(newArtifactToCreate[1], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+                  } catch (NoSuchTemplateException e) {
+                      e.printStackTrace();
+                      Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+                  } catch (FailedException e) {
+                      e.printStackTrace();
+                  }
+
+
+
+              }
+              if (!heartFound) {
+                  Ashfall.logger.log(Level.SEVERE, "Artifact heart not found... spawning");
+
+                  Random x = new Random();
+                  int lowx = 100;
+                  int highx = 3800;
+                  int resultx = x.nextInt(highx) + lowx;
+
+                  Random y = new Random();
+                  int lowy = 100;
+                  int highy = 3800;
+                  int resulty = y.nextInt(highy) + lowy;
+
+                  try {
+
+
+                      ItemFactory.createItem(newArtifactToCreate[2], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+                  } catch (NoSuchTemplateException e) {
+                      e.printStackTrace();
+                      Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+                  } catch (FailedException e) {
+                      e.printStackTrace();
+                  }
+
+
+
+              }
+              if (!eyeFound) {
+                  Ashfall.logger.log(Level.SEVERE, "Artifact eye not found... spawning");
+
+                  Random x = new Random();
+                  int lowx = 100;
+                  int highx = 3800;
+                  int resultx = x.nextInt(highx) + lowx;
+
+                  Random y = new Random();
+                  int lowy = 100;
+                  int highy = 3800;
+                  int resulty = y.nextInt(highy) + lowy;
+
+                  try {
+
+
+                      ItemFactory.createItem(newArtifactToCreate[3], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+                  } catch (NoSuchTemplateException e) {
+                      e.printStackTrace();
+                      Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+                  } catch (FailedException e) {
+                      e.printStackTrace();
+                  }
+
+
+
+              }
+              if (!flaskFound) {
+                  Ashfall.logger.log(Level.SEVERE, "Artifact Flask not found... spawning");
+
+                  Random x = new Random();
+                  int lowx = 100;
+                  int highx = 3800;
+                  int resultx = x.nextInt(highx) + lowx;
+
+                  Random y = new Random();
+                  int lowy = 100;
+                  int highy = 3800;
+                  int resulty = y.nextInt(highy) + lowy;
+
+                  try {
+
+
+                      ItemFactory.createItem(newArtifactToCreate[4], (float) 50, (float) resultx, (float) resulty, 10F, true, (byte) 21, (byte) 3, 0, "gods");
+                  } catch (NoSuchTemplateException e) {
+                      e.printStackTrace();
+                      Ashfall.logger.log(Level.FINE, "Artifact has no ItemTemplate", e);
+                  } catch (FailedException e) {
+                      e.printStackTrace();
+                  }
+
+
+
+              }
+          }
           if (artifactsGood) {
               artifacts.add(waningCrescent);
               artifacts.add(thornOfFo);
@@ -251,7 +367,8 @@ public class ArtifactPoller {
                     if (aArtifact.nextEssence > time && v.getPosZ()> 20) {              // if above water level and next essence time is around
                         Set<Item>essences = aArtifact.item.getItems();                  // get num of essences
                         Item essence=null;
-                        if (essences.size()<100) {                                      // if less than 100 refill
+                        if (essences.size()<100) {                                       // if less than 100 refill
+                            //TODO: MODIFY WEIGHT INSTEAD OF CREATING ITEMS
                             try {
                                 essence = ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, (byte) 3, "Vynora");
                             } catch (FailedException e) {
