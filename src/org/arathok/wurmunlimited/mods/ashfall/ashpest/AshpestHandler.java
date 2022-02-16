@@ -109,7 +109,7 @@ public class AshpestHandler {
              int basey = sickPerson.p.getCurrentTile().tiley;
 
 
-             Volatile[] Zone = Zones.getTilesSurrounding(basex,basey,true,1);
+             VolaTile[] Zone = Zones.getTilesSurrounding(basex,basey,true,1);
 
 
 
