@@ -1,11 +1,12 @@
 package org.arathok.wurmunlimited.mods.ashfall.items;
 
 import com.wurmonline.server.MiscConstants;
-import com.wurmonline.server.items.*;
+import com.wurmonline.server.items.ItemTemplate;
+import com.wurmonline.server.items.ItemTypes;
+import com.wurmonline.server.items.Materials;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.IconConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
-import org.gotti.wurmunlimited.modsupport.items.ModItems;
 
 import java.io.IOException;
 

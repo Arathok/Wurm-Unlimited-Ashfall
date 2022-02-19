@@ -248,13 +248,11 @@ public class ArtifactPoller {
             if (time > artifactInQuestion.calloutTimer&&artifactInQuestion.ownerId==-10) {
 
                 MessageServer.broadCastSafe(artifactInQuestion.item.getName()+" Calls out to the Ashlanders. It is searching for a new bearer to find it.",(byte)1);
-                Ashfall.logger.log(Level.FINE, "Artifacts called out");
-            }
-            else
-            {
+                Ashfall.logger.log(Level.INFO, "Artifacts called out");
                 artifactInQuestion.calloutTimer=time+14400000L;
                 artifacts.set(index,artifactInQuestion);
             }
+
 
         }
 
@@ -365,20 +363,12 @@ public class ArtifactPoller {
                 if (playerinQuestion != null) {     // if there is owner
                     Vehicle v = Vehicles.getVehicleForId(aArtifact.item.getWurmId()); // get vehicle
                     if (aArtifact.nextEssence > time && v.getPosZ()> 20) {              // if above water level and next essence time is around
-                        Set<Item>essences = aArtifact.item.getItems();                  // get num of essences
-                        Item essence=null;
-                        if (essences.size()<100) {                                       // if less than 100 refill
-                            //TODO: MODIFY WEIGHT INSTEAD OF CREATING ITEMS
-                            try {
-                                essence = ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, (byte) 3, "Vynora");
-                            } catch (FailedException e) {
-                                e.printStackTrace();
-                            } catch (NoSuchTemplateException e) {
-                                e.printStackTrace();
-                                Ashfall.logger.log(Level.SEVERE, "NO ESSENCE TEMPLATE! NUUUUUUUUUUUUU! >:C ", e);
-                            }
-                            if (essence != null)
-                                aArtifact.item.insertItem(essence, true);
+                        Item essence = aArtifact.item.getFirstContainedItem();                  // get num of essences
+
+                        if (essence!=null&&essence.getWeightGrams()<1000) {                                       // if less than 100 refill
+
+
+                                essence.setWeight(essence.getWeightGrams()+10,true);
                             aArtifact.nextEssence = time + 18000;
                             artifacts.set(index, aArtifact);
                         }
@@ -391,8 +381,11 @@ public class ArtifactPoller {
                                 Set <Item> essences=aArtifact.item.getItems();
                                 if (aArtifact.nextEssenceLost>time&& !essences.isEmpty()&&aArtifact.item.getItems()!=null)
                                 {
-                                    Item essence = aArtifact.item.getFirstContainedItem();
-                                    aArtifact.item.getItems().remove(essence);
+                                    if(aArtifact.item.getWeightGrams()>10)
+                                    aArtifact.item.getFirstContainedItem().setWeight(aArtifact.item.getWeightGrams()-10,true);
+                                    else
+                                        aArtifact.owner.disembark(false);
+
                                     aArtifact.nextEssenceLost=time+3;
                                     artifacts.set(index,aArtifact);
                                 }

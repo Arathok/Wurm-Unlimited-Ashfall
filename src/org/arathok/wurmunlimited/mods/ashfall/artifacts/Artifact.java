@@ -18,7 +18,7 @@ public class Artifact {
    public Long ownershipBeginDelayed=0L;
    public boolean foundBySameUser;
    public Long uses;
-   public Long calloutTimer=3600000L;
+   public Long calloutTimer=0L;
 
 
    Artifact(){
