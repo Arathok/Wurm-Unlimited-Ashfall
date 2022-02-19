@@ -78,14 +78,19 @@ public class ArtifactPoller {
                   flaskOfVynora.ownershipBegin = time;
                   flaskFound = true;
 
-                  try {
-                      flaskOfVynora.item.insertItem(ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, null));
-                  } catch (FailedException e) {
-                      e.printStackTrace();
-                  } catch (NoSuchTemplateException e) {
-                      Ashfall.logger.log(Level.SEVERE, "there was no template registered! for essence of the sea!");
-                      e.printStackTrace();
+                  if (oneItem.getItems().isEmpty())
+                  {
+                      try {
+                          flaskOfVynora.item.insertItem(ItemFactory.createItem(AshfallItems.essenceOfSeaId, 99.0F, null));
+                      } catch (FailedException e) {
+                          e.printStackTrace();
+                      } catch (NoSuchTemplateException e) {
+                          Ashfall.logger.log(Level.SEVERE, "there was no template registered! for essence of the sea!");
+                          e.printStackTrace();
+                      }
                   }
+
+
 
               }
           }
@@ -328,20 +333,6 @@ public class ArtifactPoller {
                     }
             }
 
-            if (aArtifact.item.getTemplate().getName().contains("Valrei") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
-                playerinQuestion = aArtifact.owner;
-                if (playerinQuestion != null) {
-                    if (aArtifact.nextEyeOpen > time) {
-                        try {
-                            playerinQuestion.setFavor((playerinQuestion.getFavor() + 0.1F));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        aArtifact.nextEyeOpen = time + 10000;
-                        artifacts.set(index, aArtifact);
-                    }
-                }
-            }
 
             if (aArtifact.item.getTemplate().getName().contains("Valrei") && Players.getInstance().getPlayerOrNull(aArtifact.ownerId) != null) {
                 playerinQuestion = aArtifact.owner;
