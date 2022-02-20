@@ -18,15 +18,16 @@ public class Artifact {
    public Long ownershipBeginDelayed=0L;
    public boolean foundBySameUser;
    public Long uses;
-   public Long calloutTimer=0L;
+   public Long calloutTimer;
 
 
    Artifact(){
      owner=null;
-     ownerId=null;
+     ownerId=-10L;
      item=null;
      ownershipBegin=null;
      previousOwnerId=-10L;
+     calloutTimer=0L;
    }
 
 
