@@ -117,7 +117,7 @@ public class AshfallItems {
     private static void registerHeartOfUttacha() throws IOException {
         heartOfUttacha = new ItemTemplateBuilder("arathok.ashfall.uttachaArtifact").name("Heart of Uttacha", "Heart of Uttacha",
                         "The heart of the worm god. Its still beating and is said to give superior regeneration to its user.")
-                .modelName("model.item.heart.")
+                .modelName("model.resource.heart.")
                 .imageNumber((short) IconConstants.ICON_HEART)
                 .itemTypes(new short[]{
 

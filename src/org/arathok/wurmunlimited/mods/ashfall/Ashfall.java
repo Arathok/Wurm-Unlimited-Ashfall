@@ -109,6 +109,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
     @Override
     public void onServerPoll() {
+        AshfallMoney.payout();
         ArtifactPoller.ArtifactCheckAndBuild();
         ArtifactPoller.ArtifactOwnerPoller();
         ArtifactPoller.ArtifactCallOut();
