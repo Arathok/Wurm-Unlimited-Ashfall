@@ -21,6 +21,7 @@ public class AshfallItems {
                 .modelName("model.spice.nutmeg.")
                 .imageNumber((short) IconConstants.ICON_SPICE_NUTMEG)
                 .itemTypes(new short[]{
+                        ItemTypes.ITEM_TYPE_BULK,
 
 
                 })
@@ -68,7 +69,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
@@ -99,7 +100,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
@@ -128,7 +129,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
@@ -157,7 +158,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
@@ -186,7 +187,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
@@ -215,7 +216,7 @@ public class AshfallItems {
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
                         ItemTypes.ITEM_TYPE_NOTRADE,
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
-                        ItemTypes.ITEM_TYPE_ARTIFACT,
+
 
                 })
                 .decayTime(Long.MAX_VALUE)
