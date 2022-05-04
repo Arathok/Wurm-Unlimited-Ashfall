@@ -26,6 +26,7 @@ import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
 import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviours;
+import javassist.ClassPool;
 
 import java.io.File;
 import java.io.IOException;
@@ -304,7 +305,21 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
     @Override
     public void preInit() {
+
         Debug("Running preInit");
+        ClassPool classpool= HookManager.getInstance().getClassPool();
+        try {
+            CtClass ctDeity =classpool.getCtClass("com.wurmonline.server.deities.Deities");
+            ctDeity.getMethod("getFavoredKingdom","(I)B")
+                    .insertBefore("deityNum=4;");
+
+        } catch (NotFoundException e) {
+            logger.log(Level.SEVERE,"class Deities not found",e);
+            e.printStackTrace();
+        } catch (CannotCompileException e) {
+            logger.log(Level.SEVERE,"could not compile",e);
+            e.printStackTrace();
+        }
         if (skillGainForBred || increasedBounties) {
             try {
                 CtClass ctCreature = ClassPool.getDefault().get("com.wurmonline.server.creatures.Creature");
@@ -504,10 +519,14 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
                                                         if (maybeGuard!=null)
                                                         if (maybeGuard.getTemplate().getName().contains("guard")||maybeGuard.getTemplate().getName().contains("Guard"))
                                                             bounty=0;
-                                                        coinMessage+="A tower guard was needed to help you fight the mob! He kept all the bounty for himself and you receive";
+
                                                     }
+                                                    if (bounty==0)
+                                                    coinMessage+="A tower guard was needed to help you fight the mob! He kept all the bounty for himself.";
                                                     long splitMoney=thisCreature.getLatestAttackers().length;
                                                     bounty = bounty / splitMoney;
+                                                    if (splitMoney>1)
+                                                        coinMessage+= "you split the bounty with "+splitMoney+" other players";
                                                     if (outOfThinAir || kingsMoney.getMoney() > bounty + 100000L) {
                                                         Debug("King can cover all the bounty.");
                                                         coinMessage += "You receive a bounty of ";

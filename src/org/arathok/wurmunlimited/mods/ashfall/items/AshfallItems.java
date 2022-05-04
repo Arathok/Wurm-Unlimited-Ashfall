@@ -1,19 +1,19 @@
 package org.arathok.wurmunlimited.mods.ashfall.items;
 
-import com.wurmonline.server.MiscConstants;
-import com.wurmonline.server.items.ItemTemplate;
-import com.wurmonline.server.items.ItemTypes;
-import com.wurmonline.server.items.Materials;
+import com.wurmonline.server.combat.Weapon;
+import com.wurmonline.server.items.*;
 import com.wurmonline.server.skills.SkillList;
 import com.wurmonline.shared.constants.IconConstants;
 import org.gotti.wurmunlimited.modsupport.ItemTemplateBuilder;
 
 import java.io.IOException;
 
+import static com.wurmonline.server.MiscConstants.EMPTY_BYTE_PRIMITIVE_ARRAY;
+
 public class AshfallItems {
 
-    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei,  spice, essenceOfSea, ashPestPustule, ashPestPus;
-    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId,  spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId;
+    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei,  spice, essenceOfSea, ashPestPustule, ashPestPus,knuckles;
+    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId,  spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId,knucklesId;
 
     private static void registerSpice() throws IOException {
         spice = new ItemTemplateBuilder("arathok.ashfall.spice").name("Spice", "Spice",
@@ -77,7 +77,7 @@ public class AshfallItems {
                 .weightGrams(2400).material(Materials.MATERIAL_SERYLL)
                 .behaviourType((short) 35) // WEAPON
                 .combatDamage(40) // HAMMER OF MAG
-                .bodySpaces(MiscConstants.EMPTY_BYTE_PRIMITIVE_ARRAY)
+                .bodySpaces(EMPTY_BYTE_PRIMITIVE_ARRAY)
                 .primarySkill(SkillList.SCYTHE)
                 .difficulty(90) // no hard lock
                 .build();
@@ -231,7 +231,49 @@ public class AshfallItems {
 
     }
 
+    private static void registerKnuckles() throws IOException {
+        knuckles = new ItemTemplateBuilder("arathok.ashfall.knuckles").name("Knuckles", "Knuckles",
+                        "A classic weapon used in hand-to-hand combat.")
+                .modelName("model.decoration.ring.rift.2.")
+                .imageNumber((short) 60)
+                .itemTypes(new short[]{
+                        ItemTypes.ITEM_TYPE_NAMED,
+                        ItemTypes.ITEM_TYPE_REPAIRABLE,
+                        ItemTypes.ITEM_TYPE_METAL,
+                        ItemTypes.ITEM_TYPE_WEAPON,
+                        ItemTypes.ITEM_TYPE_WEAPON_CRUSH
 
+
+                })
+                .decayTime(Long.MAX_VALUE)
+                .dimensions(5, 10, 80)
+                .weightGrams(800)
+                .material(Materials.MATERIAL_BRASS)
+                .behaviourType((short) 1) // Weapon
+                .primarySkill(SkillList.WEAPONLESS_FIGHTING)
+                .difficulty(40.0f) // no hard lock
+                .combatDamage(40)
+                .bodySpaces(EMPTY_BYTE_PRIMITIVE_ARRAY)
+                .value(1000)
+                .build();
+
+
+
+        knucklesId = knuckles.getTemplateId();
+        Weapon knucklesWeapon= new Weapon(knucklesId, 1.0F, 5.0F, 0.0F, 1, 1, 0.0F, 2.0D);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.brassBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.ironBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.steelBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.adamantineBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.glimmerSteelBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.seryllBar,
+                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+    }
 
     public static void register() throws IOException {
 
@@ -243,6 +285,7 @@ public class AshfallItems {
         registerWaningCrescent();
         registerAshPestPustule();
         registerAshPestPus();
+        registerKnuckles();
 
 
     }
