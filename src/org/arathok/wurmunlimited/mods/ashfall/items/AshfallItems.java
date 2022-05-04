@@ -12,8 +12,8 @@ import static com.wurmonline.server.MiscConstants.EMPTY_BYTE_PRIMITIVE_ARRAY;
 
 public class AshfallItems {
 
-    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei,  spice, essenceOfSea, ashPestPustule, ashPestPus,knuckles;
-    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId,  spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId,knucklesId;
+    public static ItemTemplate waningCrescent, thornOfFo, heartOfUttacha, eyeOfValrei,  spice, essenceOfSea, ashPestPustule, ashPestPus,knuckles,waterballoon;
+    public static int waningCrescentId, thornOfFoId, heartOfUttachaId, eyeOfValreiId,  spiceId, essenceOfSeaId, ashPestPustuleId, ashPestPusId,knucklesId,waterballoonId;
 
     private static void registerSpice() throws IOException {
         spice = new ItemTemplateBuilder("arathok.ashfall.spice").name("Spice", "Spice",
@@ -261,10 +261,7 @@ public class AshfallItems {
 
         knucklesId = knuckles.getTemplateId();
         Weapon knucklesWeapon= new Weapon(knucklesId, 1.0F, 5.0F, 0.0F, 1, 1, 0.0F, 2.0D);
-        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.brassBar,
-                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
-        CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.ironBar,
-                knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
+
         CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.steelBar,
                 knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
         CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.adamantineBar,
@@ -274,6 +271,7 @@ public class AshfallItems {
         CreationEntryCreator.createSimpleEntry(SkillList.GROUP_SMITHING_WEAPONSMITHING, ItemList.anvilSmall, ItemList.seryllBar,
                 knucklesId, false, true, 0.0f, false, false, CreationCategories.WEAPONS);
     }
+
 
     public static void register() throws IOException {
 

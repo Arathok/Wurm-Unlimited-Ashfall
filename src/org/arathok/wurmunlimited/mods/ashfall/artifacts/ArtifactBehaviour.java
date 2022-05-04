@@ -37,7 +37,7 @@ public class ArtifactBehaviour implements BehaviourProvider {
             if(source.getTemplateId()== AshfallItems.waningCrescentId &&target.isCorpse())
                 return new ArrayList<>(soulSteal);
             else
-            if(source.getTemplateId()== AshfallItems.thornOfFoId &&target.isFlower()||target.isHerb()&&target.isFresh()) // NOCH PRO TAG 10 MAL LIMITEN
+            if(source.getTemplateId()== AshfallItems.thornOfFoId && ((target.isFlower()||target.isHerb())&&target.isFresh())) // NOCH PRO TAG 10 MAL LIMITEN
                 return new ArrayList<>(drawSource);
             else
                 return null;

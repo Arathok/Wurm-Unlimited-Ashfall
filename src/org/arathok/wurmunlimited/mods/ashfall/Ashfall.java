@@ -15,6 +15,8 @@ import javassist.expr.ExprEditor;
 import javassist.expr.MethodCall;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
+import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
+import org.arathok.wurmunlimited.mods.ashfall.events.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
@@ -427,6 +429,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
             AshfallItems.register();
             SenetItems.register();
             FlaskOfVynora.register();
+            EventItems.register();
             logger.log(Level.INFO, "Done with item Register");
 
         } catch (IOException e) {
@@ -448,6 +451,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModActions.registerBehaviourProvider(new DiceBehaviour());
         ModActions.registerBehaviourProvider(new RuleBehaviour());
         ModActions.registerBehaviourProvider(new FlaskOfVynoraBehaviour());
+        ModActions.registerBehaviourProvider(new WaterballoonBehaviour());
         ModActions.registerActionPerformer(new MountFlaskOfVynoraPerformer());
         ModActions.registerActionPerformer(new DismountFlaskOfVynoraPerformer());
         logger.log(Level.INFO, "Done with Actions");
