@@ -17,7 +17,7 @@ public class EventItems {
         waterballoon = new ItemTemplateBuilder("arathok.ashfall.waterballoon").name("water balloon", "waterballoons",
                         "A round shaped object with a thin membrane filled with water")
                 .modelName("model.item.clay.")
-                .imageNumber((short) IconConstants.ICON_CLAY_PILE)
+                .imageNumber((short) IconConstants.ICON_DECO_BALL)
                 .itemTypes(new short[]{
 
 

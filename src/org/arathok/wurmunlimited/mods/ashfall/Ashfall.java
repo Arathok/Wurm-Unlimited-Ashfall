@@ -17,6 +17,7 @@ import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
 import org.arathok.wurmunlimited.mods.ashfall.events.WaterballoonBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.events.WaterballoonBehaviourCreature;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
@@ -452,6 +453,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModActions.registerBehaviourProvider(new RuleBehaviour());
         ModActions.registerBehaviourProvider(new FlaskOfVynoraBehaviour());
         ModActions.registerBehaviourProvider(new WaterballoonBehaviour());
+        ModActions.registerBehaviourProvider(new WaterballoonBehaviourCreature());
         ModActions.registerActionPerformer(new MountFlaskOfVynoraPerformer());
         ModActions.registerActionPerformer(new DismountFlaskOfVynoraPerformer());
         logger.log(Level.INFO, "Done with Actions");
