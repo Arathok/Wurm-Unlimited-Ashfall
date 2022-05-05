@@ -528,9 +528,11 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
                                                     if (bounty==0)
                                                     coinMessage+="A tower guard was needed to help you fight the mob! He kept all the bounty for himself.";
                                                     long splitMoney=thisCreature.getLatestAttackers().length;
-                                                    bounty = bounty / splitMoney;
                                                     if (splitMoney>1)
-                                                        coinMessage+= "you split the bounty with "+splitMoney+" other players";
+                                                    {
+                                                        coinMessage+= "you split the bounty with "+(splitMoney-1)+" other players";
+                                                        bounty = bounty / splitMoney;
+                                                    }
                                                     if (outOfThinAir || kingsMoney.getMoney() > bounty + 100000L) {
                                                         Debug("King can cover all the bounty.");
                                                         coinMessage += "You receive a bounty of ";
