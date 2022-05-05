@@ -59,7 +59,7 @@ public class WaterballoonPerformerDoll implements ActionPerformer {
             performer.getCommunicator().sendAlertServerMessage("You are not allowed to do that");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
-        if (target.getTemplateId() == ItemList.practiceDoll) {
+        if (target.getTemplateId() == ItemList.practiceDoll&&!WaterRitualHandler.waterRitualPlayers.containsKey(performer.getWurmId())) {
             boolean playerfound = false;
             VolaTile[] radius = Zones.getTilesSurrounding(performer.getTileX(), performer.getTileY(), true, 79);
             for (VolaTile oneTile : radius) {
@@ -86,6 +86,13 @@ public class WaterballoonPerformerDoll implements ActionPerformer {
                 WaterRitualHandler.waterRitualPlayers.put(performer.getWurmId(), System.currentTimeMillis());
             }
         }
+        else
+        {
+            performer.getCommunicator().sendAlertServerMessage("you already did the water Ritual for today. "
+                    +"You should wait another"
+                    +((WaterRitualHandler.waterRitualPlayers.get(performer.getWurmId())+86400000-System.currentTimeMillis())/86400000)+1
+                    +"hours");
+        }
         return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
     }
 
@@ -99,9 +106,25 @@ public class WaterballoonPerformerDoll implements ActionPerformer {
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
         if (target.isPlayer()&&!WaterRitualHandler.waterRitualPlayers.containsKey(performer.getWurmId())) {
+            performer.getCommunicator().sendSafeServerMessage("You throw the waterballoon at " + target.getName() + "thus recreating the water ritual. You feel like your pocket got heavier.");
+            Item waterToken = null;
+            try {
+                waterToken = ItemFactory.createItem(EventItems.waterTokenId, 99.0F, null);
+            } catch (FailedException | NoSuchTemplateException e) {
+                Ashfall.logger.log(Level.SEVERE, "no item template id found", e);
+                e.printStackTrace();
+            }
+            if (waterToken != null)
+                performer.getInventory().insertItem(waterToken);
 
+        }
+        else
+        {
+            performer.getCommunicator().sendAlertServerMessage("you already did the water Ritual for today. "
+                    +"You should wait another"
+                    +((WaterRitualHandler.waterRitualPlayers.get(performer.getWurmId())+86400000-System.currentTimeMillis())/86400000)+1
+                    +"hours");
 
-            return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
         return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
     }
