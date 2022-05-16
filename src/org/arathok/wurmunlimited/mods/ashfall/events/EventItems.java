@@ -53,11 +53,10 @@ public class EventItems {
                 .itemTypes(new short[]{
 
                         ItemTypes.ITEM_TYPE_BULK,
-                        ItemTypes.ITEM_TYPE_NODROP,
-                        ItemTypes.ITEM_TYPE_NODISCARD,
+
 
                         ItemTypes.ITEM_TYPE_NOT_SPELL_TARGET,
-                        ItemTypes.ITEM_TYPE_NOTRADE,
+
                         ItemTypes.ITEM_TYPE_NOSELLBACK,
 
 

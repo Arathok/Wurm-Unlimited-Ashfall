@@ -30,7 +30,7 @@ public class WaterballoonBehaviourCreature implements BehaviourProvider {
 
     @Override
     public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Creature target) {
-        if (source.getTemplateId() == EventItems.waterballoonId&&target.isPlayer()) {
+        if (source.getTemplateId() == EventItems.waterballoonId&&target.isPlayer()&&WaterRitualHook.waterRitualRunning) {
             if (WaterballoonPerformerDoll.canUse(performer, source))
                 return new ArrayList<>(waterballoonperson);
 

@@ -1,5 +1,6 @@
 package org.arathok.wurmunlimited.mods.ashfall; // HELLO GITHUB!
 
+import com.wurmonline.server.MessageServer;
 import com.wurmonline.server.creatures.Communicator;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.creatures.CreatureTemplateIds;
@@ -16,6 +17,8 @@ import javassist.expr.MethodCall;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
+import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.FishBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHook;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
@@ -29,7 +32,6 @@ import org.gotti.wurmunlimited.modloader.interfaces.*;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
 import org.gotti.wurmunlimited.modsupport.creatures.ModCreatures;
 import org.gotti.wurmunlimited.modsupport.vehicles.ModVehicleBehaviours;
-import javassist.ClassPool;
 
 import java.io.File;
 import java.io.IOException;
@@ -320,6 +322,8 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
             ///////////////////////////////////////////
 
+
+
         } catch (NotFoundException e) {
             logger.log(Level.SEVERE,"class Deities not found",e);
             e.printStackTrace();
@@ -327,6 +331,12 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
             logger.log(Level.SEVERE,"could not compile",e);
             e.printStackTrace();
         }
+
+
+        // WATER TOKEN EVENT
+        WaterRitualHook.insertStuff();
+
+
         if (skillGainForBred || increasedBounties) {
             try {
                 CtClass ctCreature = ClassPool.getDefault().get("com.wurmonline.server.creatures.Creature");
@@ -419,7 +429,13 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
     @Override
     public boolean onPlayerMessage(Communicator communicator, String message) {
+        if (message != null&&message.startsWith("#Ashfall waterRitual on")&&communicator.getPlayer().getPower()>=4)
+        {
+            WaterRitualHook.waterRitualRunning=true;
+            communicator.sendSafeServerMessage("The Water Ritual just begun!");
+            MessageServer.broadCastSafe("The Water Ritual just begun!",(byte)2);
 
+        }
         // TODO Auto-generated method stub
         return false;
     }
@@ -458,8 +474,10 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModActions.registerBehaviourProvider(new FlaskOfVynoraBehaviour());
         ModActions.registerBehaviourProvider(new WaterballoonBehaviour());
         ModActions.registerBehaviourProvider(new WaterballoonBehaviourCreature());
+        ModActions.registerBehaviourProvider(new FishBehaviour());
         ModActions.registerActionPerformer(new MountFlaskOfVynoraPerformer());
         ModActions.registerActionPerformer(new DismountFlaskOfVynoraPerformer());
+
         logger.log(Level.INFO, "Done with Actions");
     }
 

@@ -16,17 +16,14 @@ public class WaterballoonBehaviour implements BehaviourProvider {
     private final List<ActionEntry> waterballoondoll;
     private final WaterballoonPerformerDoll waterballoonPerformerDoll;
 
-    private final List<ActionEntry> waterballoonperson;
-    private final WaterballoonPerformerCreature waterballoonPerformerCreature;
+
 
 
     public WaterballoonBehaviour() {
         this.waterballoonPerformerDoll = new WaterballoonPerformerDoll();
         this.waterballoondoll = Collections.singletonList(waterballoonPerformerDoll.actionEntryWaterballoon);
         ModActions.registerActionPerformer(waterballoonPerformerDoll);
-        this.waterballoonPerformerCreature = new WaterballoonPerformerCreature();
-        this.waterballoonperson = Collections.singletonList(waterballoonPerformerCreature.actionEntryWaterballoon);
-        ModActions.registerActionPerformer(waterballoonPerformerCreature);
+
 
 
 
@@ -34,7 +31,7 @@ public class WaterballoonBehaviour implements BehaviourProvider {
 
     @Override
     public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item target) {
-        if (source.getTemplateId() == EventItems.waterballoonId&&target.getTemplateId()== ItemList.practiceDoll) {
+        if (source.getTemplateId() == EventItems.waterballoonId&&target.getTemplateId()== ItemList.practiceDoll&& WaterRitualHook.waterRitualRunning) {
             if (WaterballoonPerformerDoll.canUse(performer, source))
                 return new ArrayList<>(waterballoondoll);
 

@@ -69,17 +69,18 @@ public class WaterballoonPerformerDoll implements ActionPerformer {
             }
 
             if (playerfound<2) {
-                performer.getCommunicator().sendSafeServerMessage("You throw the waterballoon at " + target.getName() + "thus recreating the water ritual. You feel like your pocket got heavier.");
-                WaterRitualHandler.waterRitualPlayers.put(performer.getWurmId(), System.currentTimeMillis());
+                performer.getCommunicator().sendSafeServerMessage("You throw the waterballoon at " + target.getName() + " thus recreating the water ritual. You feel like your pocket got heavier.");
+
                 Item waterToken = null;
                 try {
-                    waterToken = ItemFactory.createItem(EventItems.waterTokenId, 99.0F, null);
+                    waterToken = ItemFactory.createItem(EventItems.waterTokenId, 99.0F, "Vynora");
                 } catch (FailedException | NoSuchTemplateException e) {
                     Ashfall.logger.log(Level.SEVERE, "no item template id found", e);
                     e.printStackTrace();
                 }
                 if (waterToken != null)
                     performer.getInventory().insertItem(waterToken);
+                WaterRitualHandler.waterRitualPlayers.put(performer.getWurmId(),System.currentTimeMillis());
             }
             else {
                     performer.getCommunicator().sendAlertServerMessage("You are not alone! There are other players around! Go find them to the ritual");
