@@ -16,8 +16,8 @@ import javassist.expr.MethodCall;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
-import org.arathok.wurmunlimited.mods.ashfall.events.WaterballoonBehaviour;
-import org.arathok.wurmunlimited.mods.ashfall.events.WaterballoonBehaviourCreature;
+import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
@@ -90,6 +90,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
             System.err.println(this.getClass().getName() + ": Unable to add file handler to logger");
             logger.log(Level.WARNING, this.getClass().getName() + ": Unable to add file handler to logger");
         }
+
         Debug("Debugging messages are enabled.");
         logger.log(Level.INFO, "skillGainForBred: " + skillGainForBred);
         logger.log(Level.INFO, "increasedBounties: " + increasedBounties);
@@ -102,6 +103,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         //Bounties are in iron coins.  So 100 = 1 copper, 10000 = 1 silver, etc
         creatureBounties = new HashMap<Integer, Long>();
         typeModifiers = new HashMap<Byte, Float>();
+
         //Cow, 1 copper
         loadBounty(properties, "Cow_Brown", CreatureTemplateIds.COW_BROWN_CID, 100);
         //Black wolf, 3 copper

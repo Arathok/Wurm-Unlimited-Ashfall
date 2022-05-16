@@ -1,4 +1,4 @@
-package org.arathok.wurmunlimited.mods.ashfall.events;
+package org.arathok.wurmunlimited.mods.ashfall.events.waterRitual;
 
 import com.wurmonline.server.FailedException;
 import com.wurmonline.server.behaviours.Action;
@@ -11,6 +11,7 @@ import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.zones.VolaTile;
 import com.wurmonline.server.zones.Zones;
 import org.arathok.wurmunlimited.mods.ashfall.Ashfall;
+import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
 import org.gotti.wurmunlimited.modsupport.actions.ActionEntryBuilder;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPropagation;
