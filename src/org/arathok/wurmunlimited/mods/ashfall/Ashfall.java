@@ -310,13 +310,15 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
     @Override
     public void preInit() {
-
+        // EVERYBODY GETS TO DO MISSIONS
         Debug("Running preInit");
         ClassPool classpool= HookManager.getInstance().getClassPool();
         try {
             CtClass ctDeity =classpool.getCtClass("com.wurmonline.server.deities.Deities");
             ctDeity.getMethod("getFavoredKingdom","(I)B")
                     .insertBefore("deityNum=4;");
+
+            ///////////////////////////////////////////
 
         } catch (NotFoundException e) {
             logger.log(Level.SEVERE,"class Deities not found",e);
