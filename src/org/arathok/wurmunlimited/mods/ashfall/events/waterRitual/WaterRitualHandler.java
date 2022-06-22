@@ -19,7 +19,8 @@ public class WaterRitualHandler {
                         waterRitualPlayers.remove(oneId);
                 }
             }
+            timer=time+1800000;
         }
-        timer=time+1800000;
+
     }
 }

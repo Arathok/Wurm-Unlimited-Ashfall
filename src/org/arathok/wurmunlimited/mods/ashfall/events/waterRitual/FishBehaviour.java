@@ -28,14 +28,17 @@ public class FishBehaviour implements BehaviourProvider {
     }
 
     @Override
-    public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Creature target) {
-        if (source.isFish() &&WaterRitualHook.waterRitualRunning) {
-            if (WaterballoonPerformerDoll.canUse(performer, source))
+    public List<ActionEntry> getBehavioursFor(Creature performer, Item target ) {
+        if (target.isFish() &&WaterRitualHook.waterRitualRunning&&performer.getPositionZ()<0.15) {
+            if (WaterballoonPerformerFish.canUse(performer, target))
                 return new ArrayList<>(releaseFish);
 
         }
         return null;
     }
 
-
+    @Override
+    public List<ActionEntry> getBehavioursFor(Creature performer, Item source, Item target) {
+        return getBehavioursFor(performer, target);
+    }
 }

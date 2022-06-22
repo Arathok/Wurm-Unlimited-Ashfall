@@ -1,6 +1,7 @@
 package org.arathok.wurmunlimited.mods.ashfall.events.waterRitual;
 
 import com.wurmonline.server.FailedException;
+import com.wurmonline.server.Items;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.creatures.Creature;
@@ -59,7 +60,7 @@ public class WaterballoonPerformerFish implements ActionPerformer {
             performer.getCommunicator().sendAlertServerMessage("You are not allowed to do that");
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
-        if (target.isFish() &&performer.getPositionZ()<0&&!WaterRitualHandler.waterRitualPlayers.containsKey(performer.getWurmId())) {
+        if (target.isFish() &&!WaterRitualHandler.waterRitualPlayers.containsKey(performer.getWurmId())) {
             performer.getCommunicator().sendSafeServerMessage("you release the Fish into the Water. It feels like Vynora is thanking you. You notice something in your pocket.");
             Item waterToken = null;
             try {
@@ -71,11 +72,14 @@ public class WaterballoonPerformerFish implements ActionPerformer {
             if (waterToken != null)
                 performer.getInventory().insertItem(waterToken);
             WaterRitualHandler.waterRitualPlayers.put(performer.getWurmId(),System.currentTimeMillis());
+            Items.destroyItem(target.getWurmId());
             Ashfall.logger.log(Level.INFO,"Player "+performer.getName()+" Got rewarded with a token for releasing a fish");
 
             }
-        else
+        else {
             performer.getCommunicator().sendSafeServerMessage("You feel the thankfulness of Vynroa, honoring her Creature, but it seems she wont give you another Token of her gratitude for Today.");
+            Items.destroyItem(target.getWurmId());
+        }
 
 
         return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
