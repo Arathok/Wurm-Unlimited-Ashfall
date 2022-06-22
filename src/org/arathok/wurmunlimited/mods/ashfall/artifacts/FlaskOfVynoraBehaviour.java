@@ -11,8 +11,8 @@ import java.util.Collections;
 import java.util.List;
 
 public class FlaskOfVynoraBehaviour implements BehaviourProvider {
-    private List<ActionEntry> embark = Collections.singletonList(new ActionEntry(Actions.EMBARK_DRIVER, "Ride", ""));
-    private List<ActionEntry> disembark = Collections.singletonList(new ActionEntry(Actions.DISEMBARK, "Disembark", ""));
+    private final List<ActionEntry> embark = Collections.singletonList(new ActionEntry(Actions.EMBARK_DRIVER, "Ride", ""));
+    private final List<ActionEntry> disembark = Collections.singletonList(new ActionEntry(Actions.DISEMBARK, "Disembark", ""));
     @Override
     public List<ActionEntry> getBehavioursFor(Creature performer, Item target) {
         if (target.getTemplateId() == FlaskOfVynora.flaskOfVynoraId) {

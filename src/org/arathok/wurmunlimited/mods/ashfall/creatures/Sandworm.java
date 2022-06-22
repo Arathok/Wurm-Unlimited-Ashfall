@@ -42,7 +42,7 @@ public class Sandworm implements ModCreature {
         //       final float naturalArmour, final float handDam, final float kickDam, final float biteDam, final float headDam, final float breathDam, final float speed, final int moveRate,
         //       final int[] itemsButchered, final int maxHuntDist, final int aggress) {
         CreatureTemplateBuilder builder = new CreatureTemplateBuilder("arathok.creature.Sandworm", "Sandworm", "A large Sandworm. It came into existence after the eruption of the Volcano and is a mess of magical and occult energy.",
-                "model.creature.spawn.uttacha", types, (byte) BodyTemplate.TYPE_BEAR, (short) 5, (byte) 0, (short) 85, (short) 50, (short) 85,
+                "model.creature.spawn.uttacha", types, BodyTemplate.TYPE_BEAR, (short) 5, (byte) 0, (short) 85, (short) 50, (short) 85,
                 "sound.death.uttacha.spawn", "sound.death.uttacha.spawn", "sound.combat.hit.deathcrawler", "sound.combat.hit.deathcrawler",
                 0.5f, 8f, 0f, 10.0f, 14.0f, 0.0f, 1.2f, 500,
                 new int[]{ItemList.meat, ItemList.heart, AshfallItems.spiceId}, 10, 74, Materials.MATERIAL_MEAT_SNAKE);

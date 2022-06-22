@@ -21,6 +21,7 @@ import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.FishBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHook;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
+import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GuardTowerRepairBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
@@ -78,7 +79,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
             if (!newDirectory.exists()) {
                 newDirectory.mkdirs();
             }
-            final FileHandler fh = new FileHandler(String.valueOf(logsPath) + this.getClass().getSimpleName() + ".log", 10240000, 200, true);
+            final FileHandler fh = new FileHandler(logsPath + this.getClass().getSimpleName() + ".log", 10240000, 200, true);
             if (bDebug) {
                 fh.setLevel(Level.INFO);
             }
@@ -475,6 +476,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         ModActions.registerBehaviourProvider(new WaterballoonBehaviour());
         ModActions.registerBehaviourProvider(new WaterballoonBehaviourCreature());
         ModActions.registerBehaviourProvider(new FishBehaviour());
+        ModActions.registerBehaviourProvider(new GuardTowerRepairBehaviour());
         ModActions.registerActionPerformer(new MountFlaskOfVynoraPerformer());
         ModActions.registerActionPerformer(new DismountFlaskOfVynoraPerformer());
 

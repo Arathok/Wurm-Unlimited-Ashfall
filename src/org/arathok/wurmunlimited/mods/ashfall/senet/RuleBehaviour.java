@@ -33,11 +33,11 @@ public class RuleBehaviour implements BehaviourProvider {
     public List<ActionEntry> getBehavioursFor(Creature performer, Item target) {
 
         if (target.getTemplateId() == SenetItems.senetRulesId) {
-            if (rulePerformer.canUse(performer, target))
+            if (RulePerformer.canUse(performer, target))
                 return new ArrayList<>(read);
         }
         if (target.getTemplateId() == SenetItems.senetRulesId) {
-            if (rulePerformer.canUse(performer, target))
+            if (RulePerformer.canUse(performer, target))
                 return new ArrayList<>(howto);
         }
         return null;

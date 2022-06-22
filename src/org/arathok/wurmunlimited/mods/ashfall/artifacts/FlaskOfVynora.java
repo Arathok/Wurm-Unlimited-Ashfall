@@ -23,7 +23,7 @@ import java.util.Set;
 public class FlaskOfVynora {
  public static int flaskOfVynoraId;
  public static ItemTemplate flaskOfVynora;
-    private static Set<Long> embarkingIds = new HashSet<>();
+    private static final Set<Long> embarkingIds = new HashSet<>();
 
     private static void registerFlaskOfVynora() throws IOException {
         flaskOfVynora = new ItemTemplateBuilder("arathok.ashfall.vynoraArtifact").name("Flask of Vynora", "Flask of Vynora",
