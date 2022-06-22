@@ -17,15 +17,15 @@ import javassist.expr.MethodCall;
 import org.arathok.wurmunlimited.mods.ashfall.artifacts.*;
 import org.arathok.wurmunlimited.mods.ashfall.creatures.Sandworm;
 import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
-<<<<<<< Updated upstream
+
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.FishBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHook;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
 import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GuardTowerRepairBehaviour;
-=======
+
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.*;
->>>>>>> Stashed changes
+
 import org.arathok.wurmunlimited.mods.ashfall.items.AshfallItems;
 import org.arathok.wurmunlimited.mods.ashfall.senet.DiceBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.senet.RuleBehaviour;
