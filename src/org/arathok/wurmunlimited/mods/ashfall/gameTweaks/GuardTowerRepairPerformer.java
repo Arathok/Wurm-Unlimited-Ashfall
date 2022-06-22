@@ -1,26 +1,18 @@
 package org.arathok.wurmunlimited.mods.ashfall.gameTweaks;
 
-import com.wurmonline.server.FailedException;
 import com.wurmonline.server.Server;
 import com.wurmonline.server.behaviours.Action;
 import com.wurmonline.server.behaviours.ActionEntry;
 import com.wurmonline.server.behaviours.Actions;
 import com.wurmonline.server.creatures.Creature;
 import com.wurmonline.server.items.Item;
-import com.wurmonline.server.items.ItemFactory;
-import com.wurmonline.server.items.NoSuchTemplateException;
 import com.wurmonline.server.skills.NoSuchSkillException;
-import com.wurmonline.server.skills.Skill;
 import com.wurmonline.server.skills.SkillList;
 import org.arathok.wurmunlimited.mods.ashfall.Ashfall;
-import org.arathok.wurmunlimited.mods.ashfall.events.EventItems;
-import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHandler;
 import org.gotti.wurmunlimited.modsupport.actions.ActionEntryBuilder;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPerformer;
 import org.gotti.wurmunlimited.modsupport.actions.ActionPropagation;
 import org.gotti.wurmunlimited.modsupport.actions.ModActions;
-
-import java.util.logging.Level;
 
 public class GuardTowerRepairPerformer implements ActionPerformer {
 
@@ -31,6 +23,9 @@ public class GuardTowerRepairPerformer implements ActionPerformer {
 
 
         actionEntryRepairGT = new ActionEntryBuilder((short) ModActions.getNextActionId(), "Ashfall GT Repair", "repairing", new int[]{
+                4,
+                25,
+                43,
                 6 /* ACTION_TYPE_NOMOVE */,
                 48 /* ACTION_TYPE_ENEMY_ALWAYS */,
                 37 /* USE SOURCE ONLY */,
@@ -64,10 +59,10 @@ public class GuardTowerRepairPerformer implements ActionPerformer {
             return propagate(action, ActionPropagation.FINISH_ACTION, ActionPropagation.NO_SERVER_PROPAGATION, ActionPropagation.NO_ACTION_PERFORMER_PROPAGATION);
         }
         try {
-        if (performer.getSkills().getSkill(SkillList.REPAIR).getKnowledge()<20.0D)
+        if (performer.getSkills().getSkill(SkillList.REPAIR).getKnowledge()<=20.0D)
                 performer.getCommunicator().sendSafeServerMessage("You can not work out how one would repair the intricatly stacked bricks.");
 
-        if (performer.getSkills().getSkill(SkillList.MASONRY).getKnowledge()<20.0D)
+        if (performer.getSkills().getSkill(SkillList.MASONRY).getKnowledge()<=20.0D)
             performer.getCommunicator().sendSafeServerMessage("You don't even know how these bricks are stacked to begin with. It appears to you that you lack basic knowledge in Masonry");
 
         if (performer.getSkills().getSkill(SkillList.REPAIR).getKnowledge()>20.0D
@@ -80,6 +75,8 @@ public class GuardTowerRepairPerformer implements ActionPerformer {
                     .getName() + " starts repairing " + target.getNameWithGenus() + ".", performer, 5);
             performer.sendActionControl(Actions.actionEntrys[162].getVerbString(), true, time);
             action.setTimeLeft(time);
+            target.repair(performer,(short)time,target.getDamage());
+
         }
 
 
