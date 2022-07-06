@@ -22,7 +22,7 @@ import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.FishBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHook;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
-import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GuardTowerRepairBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GTRepair.GuardTowerRepairBehaviour;
 
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.*;
 
