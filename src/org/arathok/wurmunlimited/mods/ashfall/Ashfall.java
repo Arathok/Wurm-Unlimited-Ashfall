@@ -22,7 +22,8 @@ import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.FishBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterRitualHook;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviour;
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.WaterballoonBehaviourCreature;
-import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GuardTowerRepairBehaviour;
+import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.FenceConstruction.FenceConstructionHook;
+import org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GTRepair.GuardTowerRepairBehaviour;
 
 import org.arathok.wurmunlimited.mods.ashfall.events.waterRitual.*;
 
@@ -340,6 +341,8 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
 
         // WATER TOKEN EVENT
         WaterRitualHook.insertStuff();
+        // Fence changes
+       // FenceConstructionHook.insertStuff(); TODO work out this shit
 
 
         if (skillGainForBred || increasedBounties) {

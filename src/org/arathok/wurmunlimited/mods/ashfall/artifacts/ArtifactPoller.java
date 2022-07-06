@@ -283,6 +283,7 @@ public class ArtifactPoller {
     }
     public static void ArtifactOwnerPoller()
     {
+
         boolean messageMerker=false;
        long time = System.currentTimeMillis();
         Iterator<Artifact> artifactsPoller = artifacts.iterator();
