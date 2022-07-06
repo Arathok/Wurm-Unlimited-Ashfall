@@ -1,4 +1,4 @@
-package org.arathok.wurmunlimited.mods.ashfall.gameTweaks.GTRepair;
+package org.arathok.wurmunlimited.mods.ashfall.gameTweaks;
 
 import com.wurmonline.server.Server;
 import com.wurmonline.server.behaviours.Action;
