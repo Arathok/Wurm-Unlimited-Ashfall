@@ -31,7 +31,7 @@ public class GuardTowerRepairBehaviour implements BehaviourProvider {
 
     @Override
     public List<ActionEntry> getBehavioursFor(Creature performer, Item target) {
-        if (target.isKingdomMarker()&&target.getDamage()>0) {
+        if (target.isKingdomMarker()) {
             if (GuardTowerRepairPerformer.canUse(performer, target))
                 return new ArrayList<>(repairGt);
 
