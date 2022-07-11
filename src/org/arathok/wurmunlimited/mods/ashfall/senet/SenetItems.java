@@ -257,7 +257,7 @@ public class SenetItems {
     private static void registerSenetFigurineBR() throws IOException {
         senetFigurineBR = new ItemTemplateBuilder("arathok.ashfall.senet.figBR").name("Senet black figurine with ruby head", "Figurines",
                         "One of six Senet game figurines. This one is colored black and has a ruby head.")
-                .modelName("model.ashfall.senet.figurine.br")
+                .modelName("model.ashfall.senet.figurine.br.")
                 .imageNumber((short) IconConstants.ICON_FRAGMENT_SLATE)
                 .itemTypes(new short[]{
 
