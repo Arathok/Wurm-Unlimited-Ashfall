@@ -25,16 +25,20 @@ public class FenceConstructionHook {
 
             ctAction.instrument(new ExprEditor() {
                 public void edit(MethodCall methodCall) throws CannotCompileException {
-                    if (methodCall.getClassName().equals("Java.Lang.Math") && methodCall.getMethodName().equals("abs")) {
-                        StringBuffer code = new StringBuffer();
-                        code.append("if ($1 < 0.0F) \n");
-                        code.append("	$1 = $1*-1;\n");
-                        code.append("return ($1/2.0F);\n");
-                        code.append("}\n");
-                        methodCall.replace(code.toString());
+                    if (methodCall.getClassName().equals("Java/Lang/Math") && methodCall.getMethodName().equals("abs")) {
+                        methodCall.replace("$_ = 7f;");//$_ is the return value of the method
+
                     }
                 }
-            });
+            }
+
+
+
+            );
+            ctWallBehaviour = HookManager.getInstance().getClassPool().getCtClass("com.wurmonline.server.behaviours.WallBehaviour");
+            //public boolean action(Action act, Creature performer, Wall wall, short action, float counter) {
+            ctWallBehaviour.getMethod("action","(Lcom/wurmonline/server/behaviours/Action;Lcom/wurmonline/server/creatures/Creature;Lcom/wurmonline/server/structures/Wall;SF)Z")
+                    .insertAt(1552,"return false;");
         } catch (NotFoundException e) {
             Ashfall.logger.log(Level.SEVERE,"Class not found!",e);
             throw new HookException(e);
@@ -44,7 +48,6 @@ public class FenceConstructionHook {
             throw new HookException(e);
 
         }
-        float a=-2.0F;
-        Math.abs(a);
+
     }
 }

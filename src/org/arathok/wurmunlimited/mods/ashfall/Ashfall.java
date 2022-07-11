@@ -342,7 +342,7 @@ public class Ashfall implements WurmServerMod, Initable, PreInitable, Configurab
         // WATER TOKEN EVENT
         WaterRitualHook.insertStuff();
         // Fence changes
-       // FenceConstructionHook.insertStuff(); TODO work out this shit
+        FenceConstructionHook.insertStuff();
 
 
         if (skillGainForBred || increasedBounties) {
